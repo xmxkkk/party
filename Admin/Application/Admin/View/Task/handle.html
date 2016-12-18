@@ -1,0 +1,89 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>
+			解决积分任务
+		</h2>
+	</div>
+	<form action="{:U()}" method="post" class="form-horizontal">
+		<div class="form-item">
+			<label class="item-label">积分任务名称<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="hidden" name="name" value="{$info.name|default=''}">
+				{$info.name|default=''}
+			</div>
+		</div>
+		<notempty name="info.content">
+		<div class="form-item">
+			<label class="item-label">积分任务描述<span class="check-tips"></span></label>
+			<div class="controls">
+				{$info.content|default=''}
+			</div>
+		</div>
+		</notempty>
+		<div>
+			<label class="item-label">完成人员<span class="check-tips"></span></label>
+			<div class="controls">
+				<div class="text input-large data-table table-striped" style="height:300px;overflow-y:auto">
+					<table>
+						<volist name='members' id='member'>
+						<tr>
+							<td style="width:30px;"><input class="ids row-selected" type="checkbox" name="handleuids[]" value="{$member.id}"></td>
+							<td>{$member.realname}</td>	
+							<td>{$member.name}</td>	
+						</tr>
+						</volist>
+					</table>
+				</div>
+			</div>
+		</div>
+        <div class="form-item">
+			<label class="item-label">解决方案<span class="check-tips"></span></label>
+			<div class="controls">
+				<textarea class="text input-large" style="height:120px;" name="handle">{$info.handle|default=''}</textarea>
+			</div>
+		</div>
+		
+		<div class="form-item">
+			<label class="item-label">积分<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-small" name="score" value="{$info.score|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">备注<span class="check-tips"></span></label>
+			<div class="controls">
+				<textarea class="text input-large" style="height:80px;" name="remark">{$info.remark|default=''}</textarea>
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="id" value="{$info.id|default=''}">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">完 成</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:U('index')}');
+
+$(function(){
+    /**/
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+	$('.time').each(function(){
+		$(this).datetimepicker({
+			format: 'yyyy-mm-dd hh:ii',
+	        language:"zh-CN",
+	        autoclose:true
+		});
+	});
+});
+</script>
+</block>

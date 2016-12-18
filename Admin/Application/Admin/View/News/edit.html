@@ -1,0 +1,107 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>
+            {$info['id']?'编辑':'新增'}新闻
+        </h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">新闻标题<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+            </div>
+        </div>
+        <div class="controls">
+            <div class="upload-img-box">
+                <notempty name="info['cover']">
+                    <div class="upload-pre-item" style="width:500px;max-height:400px;"><img src="{$info['cover']|get_cover='path'}"/></div>
+                </notempty>
+            </div>
+            <input type="file" id="upload_picture_cover">
+            <input type="hidden" name="cover" id="cover_id_cover" value="{$info['cover']}"/>
+        </div>
+        <script type="text/javascript">
+            $("#upload_picture_cover").uploadify({
+                "height"          : 30,
+                "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName"     : "download",
+                "buttonText"      : "上传封面",
+                "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                "width"           : 120,
+                'removeTimeout'   : 1,
+                'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+                "onUploadSuccess" : uploadPicturecover,
+                'onFallback' : function() {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            function uploadPicturecover(file, data){
+                var data = $.parseJSON(data);
+                var src = '';
+                if(data.status){
+                    $("#cover_id_cover").val(data.id);
+                    src = data.url || '__ROOT__' + data.path
+                    $("#cover_id_cover").parent().find('.upload-img-box').html(
+                    '<div class="upload-pre-item" style="width:500px;max-height:400px;"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    updateAlert(data.info);
+                    setTimeout(function(){
+                        $('#top-alert').find('button').click();
+                        $(that).removeClass('disabled').prop('disabled',false);
+                    },1500);
+                }
+            }
+        </script>
+        <div class="form-item">
+            <label class="item-label">新闻内容<span class="check-tips"></span></label>
+            <div class="controls">
+                <textarea name="content">{$info.content|default=''}</textarea>
+                {:hook('adminArticleEdit', array('name'=>content,'value'=>$data['content']))}
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">新闻类型<span class="check-tips"></span></label>
+            <div class="controls">
+                <select name="type" id="data-type">
+                    <option value="0">----请选择----</option>
+                    <volist name=":get_news_type()" id="type">
+                    <option value="{$key}" <eq name="key" value="$info.type">selected</eq>>{$type}</option>
+                    </volist>
+                </select>
+            </div>
+        </div>
+        <div class="form-item">
+            <label class="item-label">发布时间<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-middle time" name="publishtime" value="{$info.publishtime|time_format_str}">
+            </div>
+        </div>
+        <div class="form-item">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:U('index')}');
+$(function(){
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        autoclose:true
+    });
+});
+</script>
+</block>

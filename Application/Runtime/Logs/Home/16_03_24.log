@@ -1,0 +1,37 @@
+[ 2016-03-24T11:16:42+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.007001s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.003000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.003000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\Users\xumingxun\Desktop\tg\ThinkPHP\Library\Think\Session\Driver\Db.class.php 第 95 行.
+SQL: SHOW COLUMNS FROM `party_member` [ RunTime:0.0170s ]
+SQL: SELECT * FROM `party_member` WHERE `id` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0220s ]
+
+[ 2016-03-24T11:16:53+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\Users\xumingxun\Desktop\tg\ThinkPHP\Library\Think\Session\Driver\Db.class.php 第 95 行.
+SQL: SHOW COLUMNS FROM `party_member` [ RunTime:0.0050s ]
+SQL: SELECT * FROM `party_member` WHERE `phone` = '15652307765' LIMIT 1   [ RunTime:0.0150s ]
+SQL: SELECT * FROM `party_member` WHERE `phone` = '15652307765' AND `password` = 'e10adc3949ba59abbe56e057f20f883e' LIMIT 1   [ RunTime:0.0000s ]
+
+[ 2016-03-24T11:16:54+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.002000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead C:\Users\xumingxun\Desktop\tg\ThinkPHP\Library\Think\Session\Driver\Db.class.php 第 95 行.
+SQL: SHOW COLUMNS FROM `party_member` [ RunTime:0.0060s ]
+SQL: SELECT * FROM `party_member` WHERE `id` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2016-03-24T17:16:05+08:00 ] 127.0.0.1 /index.php?m=Home&c=Index&a=member&md=d9c4af185da5d5bf17bd21370828551e
+ERR: 非法操作:member
+

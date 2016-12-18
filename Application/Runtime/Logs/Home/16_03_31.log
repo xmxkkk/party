@@ -1,0 +1,267 @@
+[ 2016-03-31T10:36:50+08:00 ] 183.61.51.208 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000234s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000286s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000314s ]
+
+[ 2016-03-31T10:36:51+08:00 ] 183.61.51.191 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000294s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000286s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000315s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:36:57+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000288s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000376s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000410s ]
+
+[ 2016-03-31T10:36:57+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000016s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000381s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000406s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000447s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:04+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000247s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000491s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000534s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `party_member2` WHERE `phone` = '15652307765' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `phone` = '15652307765' AND `password` = 'e10adc3949ba59abbe56e057f20f883e' LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:05+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000222s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000299s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000327s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0009s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:10+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=score
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000324s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000334s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000365s ]
+SQL: SHOW COLUMNS FROM `party_event` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 1  [ RunTime:0.0002s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 2  [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 3  [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:11+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000301s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000278s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000306s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0002s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:17+08:00 ] 183.60.52.227 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000284s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000405s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000436s ]
+
+[ 2016-03-31T10:37:17+08:00 ] 219.133.40.14 /party/index.php?m=Home&c=Index&a=score
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000218s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000332s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000359s ]
+SQL: SHOW COLUMNS FROM `party_event` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 1  [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 2  [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 3  [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:18+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000397s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000408s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000449s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T10:37:18+08:00 ] 113.247.234.146 /party/index.php?m=Home&c=Index&a=score
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000012s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000311s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000466s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000505s ]
+SQL: SHOW COLUMNS FROM `party_event` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 1  [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 2  [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_event` WHERE `type` = 3  [ RunTime:0.0001s ]
+
+[ 2016-03-31T14:16:56+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000218s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000332s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000359s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0002s ]
+
+[ 2016-03-31T14:16:57+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000278s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000383s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000414s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:24+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000291s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000318s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000347s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0008s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:27+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000221s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000332s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000360s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `party_member2` WHERE `phone` = '15652307765' LIMIT 1   [ RunTime:0.0003s ]
+SQL: SELECT * FROM `party_member2` WHERE `phone` = '15652307765' AND `password` = 'e10adc3949ba59abbe56e057f20f883e' LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:28+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000008s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000222s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000333s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000361s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:34+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=news
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000422s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000436s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000478s ]
+SQL: SHOW COLUMNS FROM `party_news` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_news` WHERE ( publishtime<now() ) LIMIT 0,10   [ RunTime:0.0004s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0002s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 2 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 2 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 7 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 0 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:36+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=newdetail
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000263s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000297s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000326s ]
+SQL: SHOW COLUMNS FROM `party_news` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_news` WHERE `id` = 3 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 2 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:12:39+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000013s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000411s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000507s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000537s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0007s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0005s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T16:24:24+08:00 ] 116.228.88.72 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000297s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000410s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000448s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T22:08:46+08:00 ] 112.64.61.214 /party/index.php?m=Home&c=Index&a=is_login
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000009s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000219s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000283s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000342s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0006s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+
+[ 2016-03-31T22:08:47+08:00 ] 112.64.61.214 /party/index.php?m=Home&c=Index&a=member
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000010s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000260s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000387s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000416s ]
+SQL: SHOW COLUMNS FROM `party_member2` [ RunTime:0.0010s ]
+SQL: SELECT * FROM `party_member2` WHERE `md5` = 'd9c4af185da5d5bf17bd21370828551e' LIMIT 1   [ RunTime:0.0001s ]
+SQL: SHOW COLUMNS FROM `party_picture` [ RunTime:0.0004s ]
+SQL: SELECT * FROM `party_picture` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+SQL: SELECT * FROM `party_member2` WHERE `id` = 1 LIMIT 1   [ RunTime:0.0001s ]
+

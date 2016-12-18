@@ -1,0 +1,106 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>
+			积分记录
+		</h2>
+	</div>
+
+	<div class="data-table table-striped">
+		<table>
+			<thead>
+				<tr>
+					<th class="row-selected">
+						<input class="checkbox check-all" type="checkbox">
+					</th>
+					<th>ID</th>
+					<th>名称</th>
+					<th>积分名称</th>
+					<th>备注</th>
+					<th>积分</th>
+					<th>时间</th>
+					<th>积分来源</th>
+					<th>积分状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<volist name="list" id="info">
+					<tr>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$info.id}"></td>
+						<td>{$info.id}</td>
+						<td><a href="{:U('UserEvent/index?uid='.$info['uid'])}">{$info.realname}</a></td>
+						<td>{$info.name}</td>
+						<td>{$info.remark}</td>
+						<td>{$info.score}</td>
+						<td>{$info.addtime|time_format_str}</td>
+						<td>{$info.type_name}</td>
+						<td>{$info.status_name}</td>
+						<td>
+							<if condition="$info.status == 0 OR $info.status == 2">
+								<if condition="$info.status == 0">
+								<a href="{:U('UserEvent/setStatus?ids='.$info['id'].'&status=2')}" class="ajax-get">撤销</a>
+								<else/>
+								<a href="{:U('UserEvent/setStatus?ids='.$info['id'].'&status=0')}" class="ajax-get">恢复</a>
+								</if>
+							</if>
+						</td>
+					</tr>
+				</volist>
+				<else/>
+				<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+				</notempty>
+			</tbody>
+		</table>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	//点击排序
+	$('.list_sort').click(function(){
+		var url = $(this).attr('url');
+		var ids = $('.ids:checked');
+		var param = '';
+		if(ids.length > 0){
+			var str = new Array();
+			ids.each(function(){
+				str.push($(this).val());
+			});
+			param = str.join(',');
+		}
+
+		if(url != undefined && url != ''){
+			window.location.href = url + '/ids/' + param;
+		}
+	});
+});
+</script>
+</block>

@@ -1,0 +1,117 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+	</div>
+
+	<div class="cf">
+		<a class="btn" href="{:U('add')}">新 增</a>
+		<button class="btn ajax-post confirm" url="{:U('del')}" target-form="ids">删 除</button>
+	</div>
+
+	<div class="data-table table-striped">
+		<table>
+			<thead>
+				<tr>
+					<th class="row-selected">
+						<input class="checkbox check-all" type="checkbox">
+					</th>
+					<th>ID</th>
+					<th>名称</th>
+					<th>开始时间</th>
+					<th>结束时间</th>
+					<th>积分</th>
+					<th>完成人员</th>
+					<th>处理状态</th>
+					<th>所属小组</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<volist name="list" id="info">
+					<tr>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$info.id}"></td>
+						<td>{$info.id}</td>
+						<td><a href="{:U('edit?id='.$info['id'])}">{$info.name}</a></td>
+						<td>{$info.starttime|time_format_str}</td>
+						<td>{$info.endtime|time_format_str}</td>
+						<td>{$info.score}</td>
+						<td>
+							<volist name="info.handlemembers" id="member">
+								<a href="{:U('Member2/edit?id='.$member['id'])}">{$member.realname}</a>&nbsp
+							</volist>
+						</td>
+						<td>{$info.status_name}</td>
+						<td>{$info.group_name}</td>
+						<td>
+							<a title="编辑" href="{:U('edit?id='.$info['id'])}">编辑</a>
+							<if condition="$info.status == 0 OR $info.status == 2">
+							<a class="confirm ajax-get" title="删除" href="{:U('del?id='.$info['id'])}">删除</a>
+							</if>
+							<if condition="$info.status == 0">
+							<a href="{:U('Task/setStatus?ids='.$info['id'].'&status=2')}" class="ajax-get">撤销</a>
+							<else/>
+							</if>
+							<if condition="$info.status == 0">
+							<a href="{:U('Task/handle?id='.$info['id'])}">解决</a>
+							<else/>
+							</if>
+						</td>
+					</tr>
+				</volist>
+				<else/>
+				<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+				</notempty>
+			</tbody>
+		</table>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	//搜索功能
+	$("#search").click(function(){
+		var url = $(this).attr('url');
+        var query  = $('.search-form').find('input').serialize();
+        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
+        query = query.replace(/^&/g,'');
+        if( url.indexOf('?')>0 ){
+            url += '&' + query;
+        }else{
+            url += '?' + query;
+        }
+		window.location.href = url;
+	});
+	//回车搜索
+	$(".search-input").keyup(function(e){
+		if(e.keyCode === 13){
+			$("#search").click();
+			return false;
+		}
+	});
+	//点击排序
+	$('.list_sort').click(function(){
+		var url = $(this).attr('url');
+		var ids = $('.ids:checked');
+		var param = '';
+		if(ids.length > 0){
+			var str = new Array();
+			ids.each(function(){
+				str.push($(this).val());
+			});
+			param = str.join(',');
+		}
+
+		if(url != undefined && url != ''){
+			window.location.href = url + '/ids/' + param;
+		}
+	});
+});
+</script>
+</block>

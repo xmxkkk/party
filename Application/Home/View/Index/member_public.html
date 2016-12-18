@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/bootstrap-material-design.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/ripples.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/style.css">
+	<script type="text/javascript" src="__PUBLIC__/js/jquery.min.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/material.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/ripples.js"></script>
+	<title>党员信息</title>
+<style type="text/css">
+*{font-family: "微软雅黑"}
+.xlist_item{border-bottom:1px solid #d2d2d2;line-height:45px;}
+.xlist_item_left{color:#666;letter-spacing:5px;}
+</style>
+</head>
+<body>
+<div class="text-center"  style="background:url(__PUBLIC__/images/top.jpg)">
+	<img class="img-circle" src="http://f.hiphotos.baidu.com/image/h%3D200/sign=d9c2d17b1a950a7b6a3549c43ad0625c/14ce36d3d539b600af3985faee50352ac75cb78c.jpg" style="width:150px;margin-top:10px;margin-bottom:10px;">
+</div>
+<div class="well bs-component">
+	<div class="container xlist_item">
+	<div class="col-xs-4 xlist_item_left" style="">姓名</div>
+	<div class="col-xs-8"><b>{$member.realname}</b></div>
+	</div>
+	
+	<div class="container xlist_item">
+	<div class="col-xs-4 xlist_item_left">状态</div>
+	<div class="col-xs-8"><b>{$member.stage_name}</b></div>
+	</div>
+
+	<div class="container xlist_item">
+	<div class="col-xs-4 xlist_item_left">积分</div>
+	<div class="col-xs-8"><b>{$member.score}</b></div>
+	</div>
+
+	<div class="container xlist_item">
+	<div class="col-xs-4 xlist_item_left">年龄</div>
+	<div class="col-xs-8"><b>{$member.age}</b></div>
+	</div>
+	
+	<div class="container xlist_item">
+	<div class="col-xs-4 xlist_item_left">性别</div>
+	<div class="col-xs-8"><b>{$member.gender_name}</b></div>
+	</div>
+
+</div>
+
+<div class="container">
+	<empty name="Think.session.uid">
+		<a class="btn btn-raised btn-info col-xs-12" href="{:U('Index/login')}">
+			登录
+		</a>
+	<else/>
+		<eq name="$member['level']==1">
+		<a class="btn btn-raised btn-info col-xs-12" href="{:U('Index/record')}">
+			登记积分
+		</a>
+		</eq>
+	</empty>
+
+</div>
+
+</body>
+</html>

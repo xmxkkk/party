@@ -1,0 +1,211 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>
+            {$info['id']?'编辑':'新增'}成员 
+        </h2>
+    </div>
+    <div>
+        <p>* 新增党员密码为身份证后6位</p>
+    </div>
+    
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <table>
+            <tr>
+                <td>
+                    <div class="controls">
+                        <div class="upload-img-box">
+                            <notempty name="info['header']">
+                               <div class="upload-pre-item"><img src="{$info['header']|get_cover='path'}"/></div>
+                            </notempty>
+                        </div>
+                        <input type="file" id="upload_picture_header">
+                        <input type="hidden" name="header" id="cover_id_header" value="{$info['header']}"/> 
+                    </div>
+                    <script type="text/javascript">
+                        //上传图片
+                        /* 初始化上传插件 */
+                        $("#upload_picture_header").uploadify({
+                            "height"          : 30,
+                            "swf"             : "__STATIC__/uploadify/uploadify.swf",
+                            "fileObjName"     : "download",
+                            "buttonText"      : "上传头像",
+                            "uploader"        : "{:U('File/uploadPicture',array('session_id'=>session_id()))}",
+                            "width"           : 120,
+                            'removeTimeout'   : 1,
+                            'fileTypeExts'    : '*.jpg; *.png; *.gif;',
+                            "onUploadSuccess" : uploadPictureheader,
+                            'onFallback' : function() {
+                                alert('未检测到兼容版本的Flash.');
+                            }
+                        });
+                        function uploadPictureheader(file, data){
+                            var data = $.parseJSON(data);
+                            var src = '';
+                            if(data.status){
+                                $("#cover_id_header").val(data.id);
+                                src = data.url || '__ROOT__' + data.path
+                                $("#cover_id_header").parent().find('.upload-img-box').html(
+                                    '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                                );
+                            } else {
+                                updateAlert(data.info);
+                                setTimeout(function(){
+                                    $('#top-alert').find('button').click();
+                                    $(that).removeClass('disabled').prop('disabled',false);
+                                },1500);
+                            }
+                        }
+                    </script>
+                </td>
+                <td>
+                    <notempty name="info['md5']">
+                    <img id="qrcodeImg" src="{$info.qrcode_url}" style="width:150px;height:150px;">
+                    </notempty>
+                </td>
+                
+            </tr>
+            <tr>
+                <td style="width:300px;">
+                    <div class="form-item">
+                        <label class="item-label">姓名<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <input type="text" class="text input-middle" name="realname" value="{$info.realname|default=''}">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">身份证<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <input type="text" class="text input-middle" name="idcard" value="{$info.idcard|default=''}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">电话<span class="check-tips">手机号码用户登录</span></label>
+                        <div class="controls">
+                            <input type="text" class="text input-middle" name="phone" value="{$info.phone|default=''}">
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">积分<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <input type="text" class="text input-small" name="score" value="{$info.score|default='60'}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">身份<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <select name="stage" id="data-type">
+                            <option value="0">----请选择----</option>
+                            <volist name=":get_stage()" id="stage">
+                            <option value="{$key}" <eq name="key" value="$info.stage">selected</eq>>{$stage}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">是不是小组长<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <select name="level" id="data-type">
+                            <volist name=":get_bool()" id="bool">
+                            <option value="{$key}" <eq name="key" value="$info.level">selected</eq>>{$bool}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">所属小组<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <select name="groupid" id="data-type">
+                            <option value="0">----请选择----</option>
+                            <volist name=":get_group()" id="group">
+                            <option value="{$key}" <eq name="key" value="$info.groupid">selected</eq>>{$group['name']}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">生日<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <input type="text" class="text input-small date" name="birthday" value="{$info.birthday|default=''}">
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">性别<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <select name="gender" id="data-type">
+                            <volist name=":get_gender()" id="gender">
+                            <option value="{$key}" <eq name="key" value="$info.gender">selected</eq>>{$gender}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-item">
+                        <label class="item-label">状态<span class="check-tips"></span></label>
+                        <div class="controls">
+                            <select name="status" id="data-type">
+                            <volist name=":get_status()" id="status">
+                            <option value="{$key}" <eq name="key" value="$info.status">selected</eq>>{$status}</option>
+                            </volist>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        
+        <div class="form-item">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:U('index')}');
+
+
+$(function(){
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+    $('.time').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+});
+</script>
+</block>
