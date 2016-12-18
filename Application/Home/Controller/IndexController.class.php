@@ -79,7 +79,6 @@ class IndexController extends Controller {
         $oldpassword=I('oldpassword');
         $newpassword=I('newpassword');
 
-
         $result=[];
 
         $id=session('id');

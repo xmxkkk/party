@@ -1,0 +1,14 @@
+<div ng-controller="ScoreCtrl" ng-init="init()">
+<ion-view title="积分" >
+    <ion-content style="background:#f2f2f2" ng-show="menu.log_status > 0">
+        <div class="list ">
+          <div class="item item-icon-right" ng-repeat="score in scores" ng-click="go('app.scoreItem',{md5:md5,type:$index})">
+            {{score.name}} <i class="icon ion-ios-arrow-right"></i>
+          </div>
+        </div>
+    </ion-content>
+    <ion-content ng-hide="menu.log_status > 0">
+        <div class="item text-center" ng-click="log(menu.log_status)">请先登录</div>
+    </ion-content>
+</ion-view>
+</div>

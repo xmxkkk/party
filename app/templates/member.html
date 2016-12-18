@@ -1,0 +1,99 @@
+<ion-view view-title="个人信息" ng-controller="MemberCtrl" ng-init="init()">
+  	<div ng-show="member.md5">
+  	<ion-content style="background:#f2f2f2" scroll="true" class="has-tabs">
+    	<div ng-if="member.header_url">
+			<div class="text-center" style="padding-top:10px;">
+				<img src="{{staticBaseUrl}}{{member.header_url}}" 
+					class="img" style="width:160px;">
+		    </div>
+		</div>
+    	<div class="list ">
+    		<div class="item" style="padding-top:7px;padding-bottom:7px;">
+				<div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						姓名
+					</div>
+					<div class="col col-67">
+						{{member.realname}}
+					</div>
+				</div>
+			</div>
+			<div class="item" style="padding-top:7px;padding-bottom:7px;">
+			    <div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						状态
+					</div>
+					<div class="col col-67">
+						{{member.stage_name}}
+					</div>
+				</div>
+			</div>
+    		<div class="item" style="padding-top:7px;padding-bottom:7px;">
+				<div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						积分
+					</div>
+					<div class="col col-67">
+						{{member.score}} 分
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list">
+			<div class="item" ng-show="member.age" style="padding-top:7px;padding-bottom:7px;">
+			    <div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						年龄
+					</div>
+					<div class="col col-67">
+						{{member.age}}岁
+					</div>
+				</div>
+			</div>
+			<div class="item" ng-show="member.idcard" style="padding-top:7px;padding-bottom:7px;">
+			    <div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						身份证
+					</div>
+					<div class="col col-67">
+						{{member.idcard}}
+					</div>
+				</div>
+			</div>
+			<div class="item" ng-show="member.phone" style="padding-top:7px;padding-bottom:7px;">
+			    <div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						电话
+					</div>
+					<div class="col col-67">
+						{{member.phone}}
+					</div>
+				</div>
+			</div>
+			<div class="item" ng-show="member.birthday" style="padding-top:7px;padding-bottom:7px;">
+			    <div class="row">
+					<div class="col col-33 text-center" style="font-size:14px;color:#666">
+						生日
+					</div>
+					<div class="col col-67">
+						{{member.birthday}}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="list text-center" ng-show="member.qrcode_url">
+			<div class="item">
+			<img id="qrcodeImg" src="{{member.qrcode_url}}" style="width:200px;height:200px;">
+			</div>
+		</div>
+    </ion-content>
+	
+	<div ng-show="0 == member.id" class="bar bar-footer bar-dark" ng-click="log(menu.log_status)"><div class="title">登录</div></div>
+	<div ng-show="1 == member.level" class="bar bar-footer bar-dark" ng-click="go('app.score',{md5:member.md5})">
+		<div class="title">管理积分</div>
+	</div>
+	</div>
+	<ion-content ng-hide="member.md5">
+        <div class="item text-center" ng-click="log(menu.log_status)">请先登录</div>
+    </ion-content>
+</ion-view>

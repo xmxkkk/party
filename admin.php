@@ -16,7 +16,7 @@ if(version_compare(PHP_VERSION,'5.3.0','<'))  die('require PHP > 5.3.0 !');
 define('APP_DEBUG', true );
 define('BIND_MODULE','Admin');
 
-define('FULLDOMAIN','http://121.199.36.110/party');
+#define('FULLDOMAIN','http://121.199.36.110/party');
 
 /**
  * 应用目录设置
