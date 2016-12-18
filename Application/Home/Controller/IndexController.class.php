@@ -4,7 +4,7 @@ use Think\Controller;
 class IndexController extends Controller {
     public function qrcode($md5=""){
         $config=M('config')->where(['name'=>'QRCODE_BASE_HOST'])->find();
-        $url=$config['value'].'/www/index.html#/app/member/'.$md5;
+        $url=$config['value'].'/app/index.html#/app/member/'.$md5;
 
         $style = array(
             'border' => true,
