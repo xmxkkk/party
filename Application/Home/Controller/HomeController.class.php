@@ -16,26 +16,42 @@ use Think\Controller;
  */
 class HomeController extends Controller {
 
-	/* 空操作，用于输出404页面 */
-	public function _empty(){
-		$this->redirect('Index/index');
+	function __construct(){
 	}
 
+	function item($item_id=0){
+		$item=M('item')->where(array('id'=>$item_id))->find();
+		$item_titles=M('ItemTitle')->where(array('item_id'=>$item_id))->select();
+		// $item_menus=M('ItemMenu')->where(array('item_id'=>$item_id))->select();
 
-    protected function _initialize(){
-        /* 读取站点配置 */
-        $config = api('Config/lists');
-        C($config); //添加配置
+		$result=array();
+		$result['item']=$item;
+		$result['item_titles']=$item_titles;
+		// $item['item_menus']=$item_menus;
+		
 
-        if(!C('WEB_SITE_CLOSE')){
-            $this->error('站点已经关闭，请稍后访问~');
-        }
-    }
+		$this->ajaxReturn($result);
+	}
+	function menu($item_id=0,$title_id=0){
+		$item_title=M('ItemTitle')->where(array('id'=>$title_id))->find();
+		$item_menus=M('ItemMenu')->where(array('item_id'=>$item_id))->select();
 
-	/* 用户登录检测 */
-	protected function login(){
-		/* 用户登录检测 */
-		is_login() || $this->error('您还没有登录，请先登录！', U('User/login'));
+		$result=array();
+		$result['item_title']=$item_title;
+		$result['item_menus']=$item_menus;
+
+		$this->ajaxReturn($result);
+	}
+	function picture($menu_id=0,$title_id=0){
+
+		$pictures=M('ItemPicture')->where(array('menu_id'=>$menu_id,'title_id'=>$title_id))->select();
+		for($i=0;$i<count($pictures);$i++){
+			$pic=M('picture')->where(array('id'=>$pictures[$i]['picture_id']))->find();
+			$pictures[$i]['picture_path']=$pic['path'];
+		}
+		$result=array();
+		$result['pictures']=$pictures;
+		$this->ajaxReturn($result);
 	}
 
 }

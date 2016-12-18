@@ -36,15 +36,27 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     templateUrl: 'templates/index.html',
     controller: 'IndexCtrl'
   })
+  .state('title', {
+    url: '/title/:item_id',
+    abstract: false,
+    templateUrl: 'templates/title.html',
+    controller: 'TitleCtrl'
+  })
   .state('menu', {
-    url: '/menu',
+    url: '/menu/:title_id/:item_id',
     abstract: false,
     templateUrl: 'templates/menu.html',
     controller: 'MenuCtrl'
   })
+  .state('preview', {
+    url: '/preview/:title_id/:menu_id',
+    abstract: false,
+    templateUrl: 'templates/preview.html',
+    controller: 'PreviewCtrl'
+  })
   ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/index');
+  $urlRouterProvider.otherwise('/title');
 
 });

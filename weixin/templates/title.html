@@ -2,10 +2,11 @@
 	<ion-content>
 		<div class="list">
 			<div class="item item-divider">
-		    {{item.item_title.title}}
+		    {{item.item.name}}
 			</div>
-			<a class="item item-icon-right" ng-repeat="menu in item.item_menus" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">
-		    {{menu.name}}
+
+			<a class="item item-icon-right" ng-repeat="title in item.item_titles" ng-click="go('menu',{title_id:title.id,item_id:title.item_id})">
+		    {{title.title}}
 		    <i class="icon ion-ios-arrow-right"></i>
 			</a>
 		</div>

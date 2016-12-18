@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title></title>
 
     <link rel="manifest" href="manifest.json">
@@ -34,6 +35,62 @@
     <script src="js/base.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
+
+    <script type="text/javascript" src="./lib/swipe.js"></script>
+<script type="text/javascript" src="./lib/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="./lib/underscore.js"></script>
+<script type="text/javascript" src="./lib/pinchzoom.js"></script>
+
+<style type="text/css">
+*｛
+font-family:'微软雅黑'
+｝
+div.pinch-zoom,
+div.pinch-zoom img{
+    width: 100%;
+    -webkit-user-drag: none;
+}
+div.page{
+    margin: 0px auto 0px auto;
+    max-width: 500px;
+    position: relative;
+    text-align: left;
+}
+
+div.pinch-zoom {
+    position: relative;
+}
+div.pinch-zoom a{
+    color: white;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-decoration: none;
+    background: #333;
+    padding: 3px;
+    font-size: 11px;
+}
+
+div.pinch-zoom div.description {
+    position: absolute;
+    top: 500px;
+    left: 210px;
+}
+
+div.pinch-zoom div.description h1{
+    font-size: 40px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+div.pinch-zoom div.description p{
+    margin: 0px;
+}
+
+ul{
+    margin: 0;
+    padding: 0;
+}
+</style>
   </head>
   <body ng-app="starter">
     <ion-nav-view></ion-nav-view>
