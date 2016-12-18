@@ -50,5 +50,8 @@ Temporary Items
 .gitignore
 Admin/Runtime
 Admin/*.log
+Runtime
+Uploads
+Data
 
 
