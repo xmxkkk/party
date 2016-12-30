@@ -1,14 +1,16 @@
+<input type="file" accept="image/*" multiple="multiple" style="display:none;" />
 <ion-view view-title="">
 	<ion-content>
-		<div class="list">
-			<div class="item item-divider">
+		<ion-list>
+			<ion-item class="item item-divider">
 		    {{item.item_title.title}}
-			</div>
-			<a class="item item-icon-right" ng-repeat="menu in item.item_menus" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">
-		    {{menu.name}}
-		    <i class="icon ion-ios-arrow-right"></i>
-			</a>
-		</div>
-  
+			</ion-item>
+			<ion-item class="item item-icon-left item-icon-right" ng-repeat="menu in item.item_menus">
+			<i class="icon ion-ios-plus-outline" style="color:#444" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id})"></i>
+		    <span ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">{{menu.name}}</span>
+		    <span class="badge" style="font-weight:normal;">{{menu.cnt}}</span>
+		    <i class="icon ion-ios-arrow-right" style="color:#999" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})"></i>
+			</ion-item>
+		</ion-list>
 	</ion-content>
 </ion-view>

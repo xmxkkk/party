@@ -36,6 +36,11 @@ class HomeController extends Controller {
 		$item_title=M('ItemTitle')->where(array('id'=>$title_id))->find();
 		$item_menus=M('ItemMenu')->where(array('item_id'=>$item_id))->select();
 
+		for($i=0;$i<count($item_menus);$i++){
+			$cnt=M('ItemPicture')->where(array('menu_id'=>$item_menus[$i]['id'],'title_id'=>$title_id))->count();
+			$item_menus[$i]['cnt']=$cnt;
+		}
+
 		$result=array();
 		$result['item_title']=$item_title;
 		$result['item_menus']=$item_menus;
@@ -52,6 +57,28 @@ class HomeController extends Controller {
 		$result=array();
 		$result['pictures']=$pictures;
 		$this->ajaxReturn($result);
+	}
+
+	function upload(){
+		$title_id=I('post.title_id');
+		$menu_id=I('post.menu_id');
+
+		$Picture = D('Admin/Picture');
+        $pic_driver = C('PICTURE_UPLOAD_DRIVER');
+        $info = $Picture->upload(
+            $_FILES,
+            C('PICTURE_UPLOAD'),
+            C('PICTURE_UPLOAD_DRIVER'),
+            C("UPLOAD_{$pic_driver}_CONFIG")
+        );
+        
+     	M('ItemPicture')->data(array(
+     		'title_id'		=>	$title_id,
+     		'menu_id'		=>	$menu_id,
+     		'picture_id'	=>	$info['fileList']['id']
+     		))->add();
+
+     	$this->ajaxReturn($info);
 	}
 
 }

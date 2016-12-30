@@ -54,9 +54,16 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     templateUrl: 'templates/preview.html',
     controller: 'PreviewCtrl'
   })
+  .state('upload', {
+    url: '/upload/:title_id/:menu_id/:url',
+    abstract: false,
+    templateUrl: 'templates/upload.html',
+    controller: 'UploadCtrl'
+  })
+  
   ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/title');
+  $urlRouterProvider.otherwise('/title/2');
 
 });

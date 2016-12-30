@@ -463,6 +463,7 @@
                     'transformOrigin': '0% 0%',
                     'position': 'absolute'
                 });
+
             },
 
             end: function () {
@@ -489,6 +490,8 @@
                     return;
                 }
                 this.updatePlaned = true;
+
+
 
                 setTimeout(_.bind(function () {
                     this.updatePlaned = false;
@@ -542,6 +545,15 @@
                         });
                         this.is3d = false;
                     }
+
+                    
+                    /*
+                    var pt=($(".view-container").height()-this.container.height())/2;
+                    var h=$(".view-container").height();
+                    var w=$(".view-container").width();
+                    this.container.css('height',h+"px").css('width',w+"px");*/
+                    // $(".pinch-zoom-container").css("height",$(".view-container").height()+"px");
+                    // console.log(this.container.height());
                 }, this), 0);
             }
         };
