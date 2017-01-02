@@ -23,7 +23,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
   });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider,$httpProvider) {
 
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
@@ -60,10 +60,27 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     templateUrl: 'templates/upload.html',
     controller: 'UploadCtrl'
   })
+
+  .state('bindidcard', {
+    url: '/bindidcard',
+    abstract: false,
+    templateUrl: 'templates/bindidcard.html',
+    controller: 'BindidcardCtrl'
+  })
   
   ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/title/2');
 
+  $httpProvider.defaults.transformRequest=function(obj){
+    var str=[];
+    for(var p in obj){
+      str.push(encodeURIComponent(p)+"="+encodeURIComponent(obj[p]));
+    }
+    return str.join("&");
+  };
+  $httpProvider.defaults.headers.post={
+    'Content-Type':'application/x-www-form-urlencoded'
+  }
 });

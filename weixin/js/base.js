@@ -12,8 +12,8 @@ module.factory('ObjectFactory',[function(){
     }
 }])
 
-module.run(['$rootScope','$state','$stateParams'
-  ,function($rootScope,$state,$stateParams){
+module.run(['$rootScope','$state','$stateParams','$ionicPopup'
+  ,function($rootScope,$state,$stateParams,$ionicPopup){
     $rootScope.$state = $state;  
     $rootScope.$stateParams = $stateParams;  
     $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {  
@@ -35,5 +35,26 @@ module.run(['$rootScope','$state','$stateParams'
     }else{
         $rootScope.baseUrl="http://iparty.fuhaidev.com/index.php?s=";
         $rootScope.staticBaseUrl="http://iparty.fuhaidev.com/";
+    }
+    $rootScope.alert=function(message,cb,isred){
+        var okType;
+        if(isred){
+            okType="button-assertive";
+        }
+        $ionicPopup.alert({
+            title: '提示',
+            template: message,
+            okType:okType
+        }).then(function(res){
+            if(cb)cb(res);
+        });
+    }
+    $rootScope.confirm=function(message,cb){
+        $ionicPopup.confirm({
+            title:'提示',
+            template: message
+        }).then(function(res){
+            if(cb)cb(res);
+        });
     }
 }]);

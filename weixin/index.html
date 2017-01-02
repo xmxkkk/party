@@ -19,6 +19,11 @@
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    
+    <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+
+
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -35,16 +40,16 @@
     <script src="js/base.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/services.js"></script>
-
+    
     <script type="text/javascript" src="./lib/swipe.js"></script>
-    <script type="text/javascript" src="./lib/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="./lib/jquery.js"></script>
     <script type="text/javascript" src="./lib/underscore.js"></script>
     <script type="text/javascript" src="./lib/pinchzoom.js"></script>
-
+    <script src="lib/bootstrap/js/bootstrap.js"></script>
 <style type="text/css">
-body｛
-font-family:'微软雅黑'
-｝
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{
+    font-family: '微软雅黑'
+}
 div.pinch-zoom,
 div.pinch-zoom img{
     width: 100%;
@@ -91,6 +96,22 @@ ul{
     padding: 0;
 }
 li {list-style-type:none;}
+
+.common-bg{
+    background: #f2f2f2;
+}
+.common-title-bg{
+    background-image:url(./img/color1.jpg);
+    background-repeat:repeat;
+}
+.gray1{
+    color:#444;
+}
+.pm0{
+    padding: 0;
+    margin: 0;
+}
+
 </style>
   </head>
   <body ng-app="starter">

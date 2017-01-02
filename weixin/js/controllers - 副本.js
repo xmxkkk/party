@@ -62,12 +62,11 @@ angular.module('starter.controllers', [])
         xhr.addEventListener("load", function(e){
             if(e.target.status==200){
                 var data = eval('(' + e.target.response + ')');
-                $scope.alert(data.message,function(res){
-                    console.log("上传失败");
-                    $scope.back();
-
-                },data.status!=0);
-
+                if(data.status==1){
+                    $scope.alert(data.message,null,true);
+                }
+                console.log("上传成功");
+                $scope.back();
                 if(ObjectFactory.get('file')){
                     ObjectFactory.get('file').value="";
                 }
@@ -84,82 +83,39 @@ angular.module('starter.controllers', [])
 })
 .controller('PreviewCtrl', function($scope,$http,$stateParams) {
     console.log($stateParams);
-    var sortItem=function(){
-        var temp=new Array();
-        for(var i=0;i<$scope.item.pictures.length;i++){
-            if($scope.item.pictures[i].ord!=3.14){
-                temp[temp.length]=$scope.item.pictures[i];
-            }
-        }
-        $scope.item.pictures=temp;
-
-        for(var i=0;i<$scope.item.pictures.length;i++){
-            for(var j=i;j<$scope.item.pictures.length;j++){
-                if($scope.item.pictures[i].ord>$scope.item.pictures[j].ord){
-                    var temp = $scope.item.pictures[i];
-                    $scope.item.pictures[i] = $scope.item.pictures[j];
-                    $scope.item.pictures[j] = temp;
-                }
-            }
-        }
-        for(var i=0;i<$scope.item.pictures.length;i++){
-            $scope.item.pictures[i].ord=i;
-        }
-    }
-    var sendData=function(){
-        sortItem();
-
-        var data=new Array();
-        for(var i=0;i<$scope.item.pictures.length;i++){
-            data[data.length]={id:$scope.item.pictures[i].id,ord:$scope.item.pictures[i].ord};
-        }
-        data=JSON.stringify(data);
-
-        $http.post($scope.baseUrl+'/Home/home/imageOp.html',{data:data,title_id:picture.title_id,menu_id:picture.menu_id}).success(function(data){
-            console.log(data);
-        });
-    }
-    $scope.imageOp=function(picture,type,id){
-        if(type=='up'){
-            picture.ord-=1.5;
-            sendData();
-        }else if(type=='down'){
-            picture.ord+=1.5;
-            sendData();
-        }else if(type=='del'){
-            $scope.confirm('确认删除',function(res){
-                if(res){
-                    picture.ord=3.14;
-                    sendData();
-                }
-            });
-        }
-    }
-    
     $http.get($scope.baseUrl+'/Home/home/picture/title_id/'+$stateParams.title_id+"/menu_id/"+$stateParams.menu_id+".html",{}).success(function(data){
         $scope.item=data;
         console.log($scope.item);
 
+
         var html="";
 
         if($scope.item.pictures){
-
             /*
+            html='<div id="slider"><ul>';
+            for(var i=0;i<$scope.item.pictures.length;i++){
+                if(i==0){
+                    html += '<li style="display:block;"><div class="pinch-zoom"><img src="'+$scope.item.pictures[i].picture_path+'"/></div></li>';
+                }else{
+                    html += '<li style="display:none;"><div class="pinch-zoom"><img src="'+$scope.item.pictures[i].picture_path+'"/></div></li>';
+                }
+            }
+            html+='</ul></div>';
+            $(".page").append(html);
+
+            $('div.pinch-zoom').each(function () {
+                new RTP.PinchZoom($(this), {});
+            });*/
+
+            
+            
             html="";
             for(var i=0;i<$scope.item.pictures.length;i++){
-                html += '<div style="position:relative;">';
-                html += '<img src="'+$scope.item.pictures[i].picture_path+'" style="width:100%;left:0;top:0">';
-                html += '<div style="position:absolute;bottom:10px;width:100%;text-align:center;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;">';
-                html += '<i class="button button-dark icon ion-arrow-up-c" ng-click="imageUp()"></i>&nbsp;';
-                html += '<i class="button button-dark icon ion-arrow-down-c" ng-click="imageDown()"></i>&nbsp;';
-                html += '<i class="button button-dark icon ion-close-round" ng-click="imageDel()"></i>';
-                html += '</div>';
-                html += '</div>';
+                html += '<div><img src="'+$scope.item.pictures[i].picture_path+'" style="width:100%;"></div>';
             }
-            $(".page").append(html);*/
+            $(".page").append(html);
 
 
-            /*
             $(".page img").each(function(){
                 $(this).click(function(){
                     $(".page").hide();
@@ -178,7 +134,81 @@ angular.module('starter.controllers', [])
                     });
                 });
             });
-            */
+
+
+            /*
+            var container=$(".container");
+            var body=$(".view-container");
+            var bodyWidth=body.width();
+            var bodyHeight=body.height();
+            var bodyRadio=1.0*bodyWidth/bodyHeight;
+            console.log(bodyWidth+"/"+bodyHeight);
+            container.hide();
+            container.css("width",bodyWidth).css("height",bodyHeight);
+             
+            $(".page img").each(
+                function(){
+                    $(this).click(function(){
+                        $(".page").hide();
+                        
+                        var img=$(".container img");
+                        img.attr("src",$(this).attr("src"));
+
+                        var new_image = new Image();
+                        new_image.src = img[0].src;
+                        var imgWidth=new_image.width;
+                        var imgHeight=new_image.height;
+                        var imgRadio=1.0*imgWidth/imgHeight;
+
+                        console.log(imgWidth+"/"+imgHeight);
+
+                        
+
+                        img.css("width","none").css("height","none");
+                        if(1.0*imgWidth/imgHeight > 1.0*bodyWidth/bodyHeight){
+                            var hei=bodyWidth/imgRadio;
+                            img.css("width",bodyWidth).css("height",hei);
+                        }else{
+                            var hei=bodyHeight*imgRadio;
+                            img.css("height",bodyHeight).css("width",hei);
+                        }
+
+                        console.log("img="+img.width()+"/"+img.height());
+
+                        var left=(bodyWidth-img.width())/2;
+                        var top=(bodyHeight-img.height())/2;
+                        img.css("left",left).css("top",top);
+
+                        container.show();
+
+                    })
+                }
+            );
+
+            container.click(function(){
+                var img=$(".container img");
+                var new_image = new Image();
+                new_image.src = img[0].src;
+                var imgWidth=new_image.width;
+                var imgHeight=new_image.height;
+                var imgRadio=1.0*imgWidth/imgHeight;
+                
+                imgWidth*=2;
+                imgHeight*=2;
+                
+                img.css("width",imgWidth).css("height",imgHeight);
+
+                if(1.0*imgWidth/imgHeight > 1.0*bodyWidth/bodyHeight){
+                    var left=(bodyWidth-imgWidth)/2;
+                    var top=(bodyHeight-imgHeight)/2;
+                    img.css("left",left).css("top",top);
+                }else{
+                    var left=(bodyWidth-imgWidth)/2;
+                    var top=(bodyHeight-imgHeight)/2;
+                    img.css("left",left).css("top",top);
+                }
+
+            });*/
 
         }else{
             $(".page").append('<div class="list"><div class="item" style="text-align:center;border:0;">暂无资料！</div></div>');

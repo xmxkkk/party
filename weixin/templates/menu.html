@@ -1,16 +1,28 @@
 <input type="file" accept="image/*" multiple="multiple" style="display:none;" />
 <ion-view view-title="">
-	<ion-content>
-		<ion-list>
-			<ion-item class="item item-divider">
-		    {{item.item_title.title}}
-			</ion-item>
+	<div class="bar bar-header common-title-bg gray1">
+		<div class="h1 title"><b>{{item.item_title.title}}</b></div>
+    </div>
+	<ion-content class=" common-bg has-header padding">
+		
+			<div ng-repeat="menu in item.item_menus" style="clear:both;">
+				<button ng-show="item.isadmin" class="button button-block button-dark" style="float:right;width:15%;margin-top:0px;" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id})"><i class="icon ion-ios-plus-empty"></i></button>
+
+				<button class="button button-block button-light" style="float:left;clear:none;margin-top:0px;" ng-style="item.isadmin==0?{width:'100%'}:{width:'85%'}" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">
+				 	{{menu.name}}
+				</button>
+				
+			</div>
+		<!-- <div class="pm0"></div> -->
+		
+<!--
+		<div>
 			<ion-item class="item item-icon-left item-icon-right" ng-repeat="menu in item.item_menus">
 			<i class="icon ion-ios-plus-outline" style="color:#444" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id})"></i>
 		    <span ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">{{menu.name}}</span>
 		    <span class="badge" style="font-weight:normal;">{{menu.cnt}}</span>
 		    <i class="icon ion-ios-arrow-right" style="color:#999" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})"></i>
 			</ion-item>
-		</ion-list>
+		</div>-->
 	</ion-content>
 </ion-view>
