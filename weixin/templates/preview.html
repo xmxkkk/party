@@ -5,15 +5,16 @@
 <ion-view view-title="">
 	<ion-content>
 		<div class="page">
-			<div style="position:relative;min-height:100px;" ng-repeat="picture in item.pictures">
+			<div ng-show="item.pictures!=undefined && item.pictures.length>0" style="position:relative;min-height:100px;" ng-repeat="picture in item.pictures">
 				<img ng-src="{{picture.picture_path}}" style="width:100%;left:0;top:0">
 				
-				<div ng-show="item.isadmin==1" style="position:absolute;bottom:10px;width:100%;text-align:center;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;">
+				<div ng-show="item.isleader==1" style="position:absolute;bottom:10px;width:100%;text-align:center;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;">
 					<i class="button button-dark icon ion-arrow-up-c" ng-click="imageOp(picture,'up',picture.id)"></i>&nbsp;
 					<i class="button button-dark icon ion-arrow-down-c" ng-click="imageOp(picture,'down',picture.id)"></i>&nbsp;
 					<i class="button button-dark icon ion-close-round" ng-click="imageOp(picture,'del',picture.id)"></i>
 				</div>
 			</div>
+			<div ng-show="item.pictures==undefined || item.pictures.length==0" class="list"><div class="item" style="text-align:center;border:0;">暂无资料！</div></div>
 	    </div>
 	</ion-content>
 	<div id="slider" style="position:absolute;left:0;right:0;top:0;bottom:0;display:none;">

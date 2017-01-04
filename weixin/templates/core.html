@@ -1,0 +1,36 @@
+<ion-view view-title="">
+	<ion-content class="common-bg padding">
+		<div class="row" style="background:#fff;margin-left:0px;">
+			<div class="col col-33">
+				<img ng-src="../{{user.header_path}}" style="width:100%;height:159px;overflow:hidden;">
+			</div>
+			<div class="col" style="padding-left:20px;">
+				<div class="row">
+					<div class="col col-20"><b>姓名</b></div>
+					<div class="col">{{user.realname}}</div>
+				</div>
+				<div class="row">
+					<div class="col col-20"><b>年龄</b></div>
+					<div class="col">{{user.age}}岁</div>
+				</div>
+				<div class="row">
+					<div class="col col-33" style="width:250px;"><b>入党时间</b></div>
+					<div class="col">无</div>
+				</div>
+				<div class="row">
+					<div class="col col-20"><b>支部</b></div>
+					<div class="col">无({{user.group_name}})</div>
+				</div>
+				<div class="row">
+					<div class="col col-20"><b>积分</b></div>
+					<div class="col">{{user.score}}分 &nbsp;&nbsp;<button class="button button-dark button-small" style="padding:0px 2px;min-height:18px;line-height:18px;" ng-click="go('scorelist',{})">积分详情</button></div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="background:#fff;margin-left:0px;margin-top:12px;">
+			<div><b>任务</b></div>
+			<div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

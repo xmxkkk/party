@@ -67,6 +67,12 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     templateUrl: 'templates/bindidcard.html',
     controller: 'BindidcardCtrl'
   })
+  .state('core', {
+    url: '/core',
+    abstract: false,
+    templateUrl: 'templates/core.html',
+    controller: 'CoreCtrl'
+  })
   
   ;
 

@@ -44,7 +44,8 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
         $ionicPopup.alert({
             title: '提示',
             template: message,
-            okType:okType
+            okType:okType,
+            okText:'确定'
         }).then(function(res){
             if(cb)cb(res);
         });
@@ -52,9 +53,61 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
     $rootScope.confirm=function(message,cb){
         $ionicPopup.confirm({
             title:'提示',
-            template: message
+            template: message,
+            cancelText:'取消',
+            okText:'确定',
+            okType: 'button-positive'
+        }).then(function(res){
+            console.log(res);
+            if(cb)cb(res);
+        });
+    }
+    $rootScope.confirm=function(message,cb){
+        $ionicPopup.confirm({
+            title:'提示',
+            template: message,
+            cancelText:'取消',
+            okText:'确定',
+            okType: 'button-positive'
+        }).then(function(res){
+            console.log(res);
+            if(cb)cb(res);
+        });
+    }
+    
+
+    $rootScope.showInput=function(title,cb){
+        $ionicPopup.show({
+            template: '<input type="text" ng-model="data.text">',
+            title: title,
+            scope: $rootScope,
+            buttons: [
+                { text: '取消' },
+                {
+                    text: '<b>保存</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                        if (!$rootScope.data.text) {
+                            e.preventDefault();
+                        } else {
+                            return $rootScope.data.text;
+                        }
+                    }
+                },
+            ]
         }).then(function(res){
             if(cb)cb(res);
         });
+    }
+    $rootScope.getObjectURL=function(file) {
+        var url = null ; 
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
     }
 }]);
