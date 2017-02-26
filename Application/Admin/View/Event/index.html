@@ -20,7 +20,7 @@
 					<th>名称</th>
 					<th>积分</th>
 					<th>小组</th>
-					<th>积分类型</th>
+					<th>年份</th>
 					<th>操作</th>
 				</tr>
 			</thead>
@@ -33,7 +33,7 @@
 						<td><a href="{:U('edit?id='.$info['id'])}">{$info.name}</a></td>
 						<td>{$info.score}</td>
 						<td>{$info.group_name}</td>
-						<td><a href="{:U('index?type='.$info['type'])}">{$info.type_name}</a></td>
+						<td>{$info.year}</td>
 						<td>
 							<a title="编辑" href="{:U('edit?id='.$info['id'])}">编辑</a>
 							<a class="confirm ajax-get" title="删除" href="{:U('del?id='.$info['id'])}">删除</a>

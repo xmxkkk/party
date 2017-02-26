@@ -8,19 +8,12 @@
 			<div ng-repeat="menu in item.item_menus">
 				<div>
 					<div style="clear:both;display:block;">
-						<button ng-show="item.isleader" class="button button-block button-balanced" style="float:right;width:15%;margin-bottom:5px;" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id})"><i class="icon ion-ios-camera"></i></button>
+						<button ng-show="item.isleader" class="button button-block button-balanced" style="float:right;width:15%;margin-bottom:5px;" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id,type:'menu'})"><i class="icon ion-ios-camera"></i></button>
 
-						<button class="button button-block button-light" style="float:left;clear:none;margin-bottom:5px;" ng-style="item.isleader==0?{width:'100%'}:{width:'84%'}" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id})">
+						<button class="button button-block button-light" style="float:left;clear:none;margin-bottom:5px;" ng-style="item.isleader==0?{width:'100%'}:{width:'84%'}" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id,type:'menu'})">
 						 	{{menu.name}}
 						</button>
 					</div>
-					<!--
-					<div style="text-align:center;">
-						<i class="button button-small button-dark icon ion-arrow-up-c" ng-click="menuOp(menu,'up',menu.id)"></i>
-						<i class="button button-small button-dark icon ion-arrow-down-c" ng-click="menuOp(menu,'down',menu.id)"></i>
-						<i class="button button-small button-dark icon ion-edit" ng-click="menuOp(menu,'edit',menu.id)"></i>
-						<i class="button button-small button-dark icon ion-close-round" ng-click="menuOp(menu,'del',menu.id)"></i>
-					</div>-->
 				</div>
 			</div>
 		</div>

@@ -4,4 +4,8 @@ module.controller('CoreCtrl', function($scope,$rootScope,$http,$stateParams,Obje
         console.log(data);
         $scope.user=data;
     });
+    $http.post($scope.baseUrl+'/Home/home/scoreMenus.html',{}).success(function(data){
+        console.log(data);
+        $scope.scoreMenus=data;
+    });
 });

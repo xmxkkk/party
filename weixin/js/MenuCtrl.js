@@ -11,7 +11,8 @@ module.controller('MenuCtrl', function($scope,$rootScope,$http,$stateParams,Obje
             obj.url=objUrl;
             console.log(obj);
             ObjectFactory.set('file',this.files[0]);
-            $scope.go('upload',obj);
+            ObjectFactory.set("info",obj);
+            $scope.go('upload',{});
         });
         file.click();
     }

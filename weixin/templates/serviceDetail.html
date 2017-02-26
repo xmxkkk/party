@@ -1,0 +1,60 @@
+
+<input type="file" accept="image/*" multiple="multiple" style="display:none;" />
+<ion-view view-title="" ng-init="init()">
+    <div class="bar bar-header common-title-bg gray1">
+        <div class="h1 title"><b>服务信息</b></div>
+    </div>
+    <ion-content class="common-bg has-header " ng-class="{true:'has-footer'}[service.userScore.status!=2]">
+        <div class="padding card">
+            <div class="pb10">
+                <div class="title_task">服务名</div>
+                <div class="content_task">{{service.name}}</div>
+            </div>
+
+            <div class="pb10" ng-if="service.content">
+                <div class="title_task">服务描述</div>
+                <div class="content_task">{{service.content}}</div>
+            </div>
+            <div class="pb10">
+                <div class="title_task">服务状态</div>
+                <div class="content_task">
+                	<div ng-if="service.userScore"><!--0未完成，1等待，2审核通过，3审核没有通过-->
+                		<div ng-if="service.userScore['status']==0">
+                			未完成
+                		</div>
+                		<div ng-if="service.userScore['status']==1">
+                			等待审核中
+                		</div>
+                		<div ng-if="service.userScore['status']==2">
+                			审核通过
+                		</div>
+                        <div ng-if="service.userScore['status']==3">
+                            没有通过
+                        </div>
+                	</div>
+                	<div ng-if="!service.userScore">
+                		未完成
+                	</div>
+                </div>
+            </div>
+            <div class="pb10">
+                <div class="title_task">任务资料</div>
+                <div ng-show="service.userScorePictures!=undefined && service.userScorePictures.length>0" style="position:relative;min-height:100px;" ng-repeat="picture in service.userScorePictures">
+                    <img ng-src="{{picture.picture_path}}" style="width:100%;left:0;top:0">
+
+                    <div ng-if="service.userScore.status!=2" ng-show="1" style="position:absolute;bottom:10px;width:100%;text-align:center;filter:alpha(opacity=80);-moz-opacity:0.8;opacity:0.8;">
+                        <i class="button button-dark icon ion-arrow-up-c" ng-click="imageOp(picture,'up',picture.picture.id)"></i>&nbsp;
+                        <i class="button button-dark icon ion-arrow-down-c" ng-click="imageOp(picture,'down',picture.picture.id)"></i>&nbsp;
+                        <i class="button button-dark icon ion-close-round" ng-click="imageOp(picture,'del',picture.picture.id)"></i>
+                    </div>
+                </div>
+                <div ng-if="!service.userScorePictures"  style="line-height:20pt;color:#999">暂无资料！</div>
+
+                <button  ng-if="service.userScore.status!=2" class="button button-small button-positive" ng-click="takePicture({userScoreId:service.userScore.id,type:'service'})">提交资料</button>
+            </div>
+        </div>
+    </ion-content>
+	<div class="bar bar-footer bar-assertive" ng-if="service.userScore.status!=2">
+        <h1 class="title" ng-click="submitVerify(service.userScore.id)">我已完成，提交审核</h1>
+	</div>
+</ion-view>

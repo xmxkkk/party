@@ -1,0 +1,26 @@
+<ion-view view-title="">
+    <div class="bar bar-header common-title-bg gray1">
+        <div class="h1 title"><b>义务信息</b></div>
+    </div>
+    <ion-content class="common-bg has-header">
+        <div class="padding card">
+            <div class="pb10">
+                <div class="title_task">义务名</div>
+                <div class="content_task">{{event.name}}</div>
+            </div>
+            
+            <div style="padding-bottom: 10pt;" ng-if="event.content">
+                <div class="title_task">义务描述</div>
+                <div class="content_task">{{event.content}}</div>
+            </div>
+            <div style="padding-bottom: 10pt;">
+                <div class="title_task">义务积分</div>
+                <div class="content_task">{{event.score}} 分</div>
+            </div>
+            <div style="padding-bottom: 10pt;">
+                <div class="title_task">义务状态</div>
+                <div class="content_task">{{event.userScore.status==2?"完成":"未完成"}}</div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

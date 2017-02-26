@@ -46,7 +46,8 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     url: '/menu/:title_id/:item_id',
     abstract: false,
     templateUrl: 'templates/menu.html',
-    controller: 'MenuCtrl'
+    controller: 'MenuCtrl',
+    cache:false
   })
   .state('preview', {
     url: '/preview/:title_id/:menu_id',
@@ -55,7 +56,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     controller: 'PreviewCtrl'
   })
   .state('upload', {
-    url: '/upload/:title_id/:menu_id/:url',
+    url: '/upload',
     abstract: false,
     templateUrl: 'templates/upload.html',
     controller: 'UploadCtrl'
@@ -71,9 +72,44 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     url: '/core',
     abstract: false,
     templateUrl: 'templates/core.html',
-    controller: 'CoreCtrl'
+    controller: 'CoreCtrl',
+    cache:'false'
   })
-  
+  .state('score', {
+    url: '/score/:year',
+    abstract: false,
+    templateUrl: 'templates/Score.html',
+    controller: 'ScoreCtrl',
+    cache:'false'
+  })
+  .state('eventDetail', {
+    url: '/eventDetail/:type/:type_id',
+    abstract: false,
+    templateUrl: 'templates/EventDetail.html',
+    controller: 'EventDetailCtrl'
+  })
+  .state('taskDetail', {
+    url: '/taskDetail/:type/:type_id',
+    abstract: false,
+    templateUrl: 'templates/TaskDetail.html',
+    controller: 'TaskDetailCtrl',
+    cache:'false'
+  })
+  .state('serviceDetail', {
+    url: '/serviceDetail/:type/:type_id',
+    abstract: false,
+    templateUrl: 'templates/ServiceDetail.html',
+    controller: 'ServiceDetailCtrl',
+    cache:'false'
+  })
+  .state('addService', {
+    url: '/addService',
+    abstract: false,
+    templateUrl: 'templates/addService.html',
+    controller: 'AddServiceCtrl',
+    cache:'false'
+  })
+
   ;
 
   // if none of the above states are matched, use this as the fallback

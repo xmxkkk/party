@@ -26,6 +26,16 @@
 			</div>
 		</div>
 		<div class="form-item">
+			<label class="item-label">年份<span class="check-tips"></span></label>
+			<div class="controls">
+				<select name="year" id="data-year">
+                <volist name="years" id="year">
+                <option value="{$year}" <eq name="year" value="$info.year">selected</eq>>{$year}</option>
+                </volist>
+                </select>
+			</div>
+		</div>
+		<div class="form-item">
             <label class="item-label">小组<span class="check-tips"></span></label>
         	<div class="controls">
             	<select name="gid" id="data-type">
@@ -35,6 +45,7 @@
                 </select>
             </div>
         </div>
+        <!--
         <div class="form-item">
             <label class="item-label">积分事件类型<span class="check-tips"></span></label>
         	<div class="controls">
@@ -45,7 +56,7 @@
                 </select>
             </div>
         </div>
-        
+        -->
 
 		<div class="form-item">
 			<input type="hidden" name="id" value="{$info.id|default=''}">

@@ -14,17 +14,36 @@ module.factory('ObjectFactory',[function(){
 
 module.run(['$rootScope','$state','$stateParams','$ionicPopup'
   ,function($rootScope,$state,$stateParams,$ionicPopup){
-    $rootScope.$state = $state;  
-    $rootScope.$stateParams = $stateParams;  
-    $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {  
-        // to be used for back button //won't work when page is reloaded.  
-        $rootScope.previousState_name = fromState.name;  
-        $rootScope.previousState_params = fromParams;  
-    });  
-    //back button function called from back button's ng-click="back()"  
-    $rootScope.back = function() {//实现返回的函数  
-        $state.go($rootScope.previousState_name,$rootScope.previousState_params);  
-    };  
+    $rootScope.$state = $state;
+    $rootScope.$stateParams = $stateParams;
+	$rootScope.previousState_name=[];
+	$rootScope.previousState_params=[];
+    $rootScope.$on("$stateChangeSuccess",  function(event, toState, toParams, fromState, fromParams) {
+        // to be used for back button //won't work when page is reloaded.
+        // $rootScope.previousState_name = fromState.name;
+        // $rootScope.previousState_params = fromParams;
+		if(fromState.name){
+			$rootScope.previousState_name.push(fromState.name);
+			$rootScope.previousState_params.push(fromParams);
+		}
+		console.log($rootScope.previousState_name);
+		console.log($rootScope.previousState_params);
+    });
+    //back button function called from back button's ng-click="back()"
+    $rootScope.back = function() {//实现返回的函数
+		// console.log($rootScope.previousState_name);
+		// console.log($rootScope.previousState_params);
+
+		var stateName=$rootScope.previousState_name.pop();
+		var params=$rootScope.previousState_params.pop();
+		if(stateName){
+			if(stateName=='upload'||stateName=='addService'){
+				$rootScope.back();
+			}else{
+				$state.go(stateName,params);
+			}
+		}
+    };
 
     $rootScope.go=function(page,params){
         $state.go(page,params);
@@ -74,7 +93,7 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
             if(cb)cb(res);
         });
     }
-    
+
 
     $rootScope.showInput=function(title,cb){
         $ionicPopup.show({
@@ -100,7 +119,7 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
         });
     }
     $rootScope.getObjectURL=function(file) {
-        var url = null ; 
+        var url = null ;
         if (window.createObjectURL!=undefined) { // basic
             url = window.createObjectURL(file) ;
         } else if (window.URL!=undefined) { // mozilla(firefox)

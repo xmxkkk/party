@@ -1,0 +1,61 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>
+			{$info['id']?'编辑':'新增'}服务
+		</h2>
+	</div>
+	<form action="{:U()}" method="post" class="form-horizontal">
+		<div class="form-item">
+			<label class="item-label">服务名称<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">服务描述<span class="check-tips"></span></label>
+			<div class="controls">
+				<textarea class="text input-large" style="height:120px;" name="content">{$info.content|default=''}</textarea>
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">年份<span class="check-tips"></span></label>
+			<div class="controls">
+				<select name="year" id="data-year">
+                <volist name="years" id="year">
+                <option value="{$year}" <eq name="year" value="$info.year">selected</eq>>{$year}</option>
+                </volist>
+                </select>
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="id" value="{$info.id|default=''}">
+			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:U('index')}');
+
+$(function(){
+    /**/
+    $('.date').datetimepicker({
+        format: 'yyyy-mm-dd',
+        language:"zh-CN",
+        minView:2,
+        autoclose:true
+    });
+	$('.time').each(function(){
+		$(this).datetimepicker({
+			format: 'yyyy-mm-dd hh:ii',
+	        language:"zh-CN",
+	        autoclose:true
+		});
+	});
+});
+</script>
+</block>

@@ -20,12 +20,14 @@ class HomeController extends Controller {
 		session('uid',1);
 		session('isleader',1);
 		session('isadmin',1);
-		
+
 	}
 	private function user(){
 		$uid=empty(session('uid'))?0:session('uid');
 		$isleader=empty(session('isleader'))?0:session('isleader');
 		$isadmin=empty(session('isadmin'))?0:session('isadmin');
+
+
 		return array('uid'=>$uid,'isleader'=>$isleader,'isadmin'=>$isadmin);
 	}
 	private function islogin($level){
@@ -75,9 +77,226 @@ class HomeController extends Controller {
 
 		$group=M('Group')->where(array('id'=>$member2['groupid']))->find();
 		$member2['group_name']=$group['name'];
-		
+
 
 		$this->ajaxReturn($member2);
+	}
+	function scoreMenus(){
+		$scoreStartYearConfig=D('config')->where(array('name'=>'SCORE_START_YEAR'))->find();
+
+		$scoreStartYear=intval($scoreStartYearConfig['value']);
+		$scoreEndYear=intval(date('Y'));
+
+		$scoreMenus=array();
+		for($i=$scoreEndYear;$i>=$scoreStartYear;$i--){
+			$scoreMenus[]=array("name"=>$i."年积分事件","year"=>$i);
+		}
+
+		$this->ajaxReturn($scoreMenus);
+	}
+	function score(){
+		$user=$this->user();
+		$uid=$user['uid'];
+
+		$type=intval(I('post.type'));
+		$year=intval(I('post.year'));
+		if($type==0){
+			//义务分
+			$events=D('event')->where(array('year'=>$year))->select();
+			for($i=0;$i<count($events);$i++){
+				$type_id=$events[$i]['id'];
+				$events[$i]['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>$type,'type_id'=>$type_id))->find();
+			}
+			$temp=array();
+			for($i=0;$i<count($events);$i++){
+				if($events[$i]['userScore']&&$events[$i]['userScore']['status']==2){
+					$temp[]=$events[$i];
+				}
+			}
+			for($i=0;$i<count($events);$i++){
+				if(!($events[$i]['userScore']&&$events[$i]['userScore']['status']==2)){
+					$temp[]=$events[$i];
+				}
+			}
+			$events=$temp;
+
+			$this->ajaxReturn($events);
+		}else if($type==1){
+			//任务分
+			$tasks=D('task')->where(array('year'=>$year))->select();
+			for($i=0;$i<count($tasks);$i++){
+				$type_id=$tasks[$i]['id'];
+				$tasks[$i]['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>$type,'type_id'=>$type_id))->find();
+			}
+
+			$temp=array();
+			for($i=0;$i<count($tasks);$i++){
+				if($tasks[$i]['userScore']&&$tasks[$i]['userScore']['status']==2){
+					$temp[]=$tasks[$i];
+				}
+			}
+			for($i=0;$i<count($tasks);$i++){
+				if(!($tasks[$i]['userScore']&&$tasks[$i]['userScore']['status']==2)){
+					$temp[]=$tasks[$i];
+				}
+			}
+			$tasks=$temp;
+
+			$this->ajaxReturn($tasks);
+		}else if($type==2){
+			//服务分
+			$services=D('service')->where(array('year'=>$year))->select();
+			for($i=0;$i<count($services);$i++){
+				$type_id=$services[$i]['id'];
+				$services[$i]['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>$type,'type_id'=>$type_id))->find();
+			}
+
+			$temp=array();
+			for($i=0;$i<count($services);$i++){
+				if($services[$i]['userScore']&&$services[$i]['userScore']['status']==2){
+					$temp[]=$services[$i];
+				}
+			}
+			for($i=0;$i<count($services);$i++){
+				if(!($services[$i]['userScore']&&$services[$i]['userScore']['status']==2)){
+					$temp[]=$services[$i];
+				}
+			}
+			$services=$temp;
+
+			$this->ajaxReturn($services);
+		}
+	}
+	function eventDetail(){
+		$user=$this->user();
+		$uid=$user['uid'];
+
+		$type_id=intval(I('post.type_id'));
+
+		$us=D('userScore')->where(array('uid'=>$uid,'type'=>0,'type_id'=>$type_id))->find();
+		if(!$us){
+			D('userScore')->add(array(
+				"type"		=>	0,
+				"uid"		=>	$uid,
+				"type_id"	=>	$type_id,
+				"score"		=>	0,
+				"status"	=>	0,
+				"addtime"	=>	date("Y-m-d H:i:s")
+				));
+		}
+
+		$event=D('event')->where(array('id'=>$type_id))->find();
+		$event['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>0,'type_id'=>$type_id))->find();
+
+		$this->ajaxReturn($event);/**/
+	}
+	function taskDetail(){
+		$user=$this->user();
+		$uid=$user['uid'];
+
+		$type_id=intval(I('post.type_id'));
+
+		$us=D('userScore')->where(array('uid'=>$uid,'type'=>1,'type_id'=>$type_id))->find();
+		if(!$us){
+			D('userScore')->add(array(
+				"type"		=>	1,
+				"uid"		=>	$uid,
+				"type_id"	=>	$type_id,
+				"score"		=>	0,
+				"status"	=>	0,
+				"addtime"	=>	date("Y-m-d H:i:s")
+				));
+		}
+
+		$event=D('task')->where(array('id'=>$type_id))->find();
+		$event['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>1,'type_id'=>$type_id))->find();
+
+		if($event['userScore']){
+			$userScoreId=$event['userScore']['id'];
+			$userScorePictures=D('userScorePicture')->where(array("user_score_id"=>$userScoreId))->order('ord')->select();
+			for($i=0;$i<count($userScorePictures);$i++){
+				$picture_id=$userScorePictures[$i]['picture_id'];
+				$pic=D('picture')->where(array('id'=>$picture_id))->find();
+				$userScorePictures[$i]['picture_path']=$pic['path'];
+				$userScorePictures[$i]['ord']=$i;
+
+				M('userScorePicture')->where(array('id'=>$userScorePictures[$i]['id']))->save(array('ord'=>$userScorePictures[$i]['ord']));
+			}
+			$event['userScorePictures']=$userScorePictures;
+		}else{
+			$event['userScorePictures']=[];
+		}
+
+		$this->ajaxReturn($event);
+	}
+	function serviceDetail(){
+		$user=$this->user();
+		$uid=$user['uid'];
+
+		$type_id=intval(I('post.type_id'));
+
+		$us=D('userScore')->where(array('uid'=>$uid,'type'=>2,'type_id'=>$type_id))->find();
+		if(!$us){
+			D('userScore')->add(array(
+				"type"		=>	2,
+				"uid"		=>	$uid,
+				"type_id"	=>	$type_id,
+				"score"		=>	0,
+				"status"	=>	1,
+				"addtime"	=>	date("Y-m-d H:i:s")
+				));
+		}
+
+		$service=D('service')->where(array('id'=>$type_id))->find();
+		$service['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>2,'type_id'=>$type_id))->find();
+
+		if($service['userScore']){
+			$userScoreId=$service['userScore']['id'];
+			$userScorePictures=D('userScorePicture')->where(array("user_score_id"=>$userScoreId))->order('ord')->select();
+			for($i=0;$i<count($userScorePictures);$i++){
+				$picture_id=$userScorePictures[$i]['picture_id'];
+				$pic=D('picture')->where(array('id'=>$picture_id))->find();
+				$userScorePictures[$i]['picture_path']=$pic['path'];
+				$userScorePictures[$i]['ord']=$i;
+
+				M('userScorePicture')->where(array('id'=>$userScorePictures[$i]['id']))->save(array('ord'=>$userScorePictures[$i]['ord']));
+			}
+			$service['userScorePictures']=$userScorePictures;
+		}else{
+			$service['userScorePictures']=[];
+		}
+
+		$this->ajaxReturn($service);
+	}
+
+
+	function verifyTask(){
+		$user_score_id=intval(I('post.user_score_id'));
+
+		$userScore=M('UserScore')->where(array('id'=>$user_score_id))->find();
+
+		if($userScore['status']==2){
+			$result['status']=2;
+			$result['message']="已经审核通过";
+			$this->ajaxReturn($result);
+		}
+
+		$userScorePictures=M('UserScorePicture')->where(array('user_score_id'=>$user_score_id))->select();
+
+		$result=array();
+		if(!$userScorePictures){
+			$result['status']=1;
+			$result['message']="请提交相关资料！";
+			$this->ajaxReturn($result);
+		}
+		//0未完成，1等待，2审核通过，3审核没有通过
+		M('UserScore')->where(array('id'=>$user_score_id))->save(array(
+				'status'	=>	1
+			));
+
+		$result['status']=0;
+		$result['message']="提交成功，等待审核！";
+		$this->ajaxReturn($result);
 	}
 
 	function title($item_id=0){
@@ -87,7 +306,7 @@ class HomeController extends Controller {
 		$result=array();
 		$result['item']=$item;
 		$result['item_titles']=$item_titles;
-		
+
 		$this->ajaxReturn($result);
 	}
 	function menu(){
@@ -125,29 +344,49 @@ class HomeController extends Controller {
 	}
 
 	function upload(){
-		$this->islogin('LEADER');
+		$info=I('post.info');
+		$info=json_decode($info);
 
-		$title_id=I('post.title_id');
-		$menu_id=I('post.menu_id');
+		if($info->type=='menu'){
+			$this->islogin('LEADER');
+		}else if($info->type=='task' || $info->type=='service'){
+			$this->islogin('USER');
+		}
+
+		$user=$this->user();
+		$uid=$user['uid'];
 
 		$Picture = D('Admin/Picture');
         $pic_driver = C('PICTURE_UPLOAD_DRIVER');
-        $info = $Picture->upload(
+        $upload = $Picture->upload(
             $_FILES,
             C('PICTURE_UPLOAD'),
             C('PICTURE_UPLOAD_DRIVER'),
             C("UPLOAD_{$pic_driver}_CONFIG")
         );
-        
-     	M('ItemPicture')->data(array(
-     		'title_id'		=>	$title_id,
-     		'menu_id'		=>	$menu_id,
-     		'picture_id'	=>	$info['fileList']['id']
-     		))->add();
-     	$info['status']=0;
-     	$info['message']="上传成功";
+        if($info->type=='menu'){
+			$title_id=$info->title_id;
+			$menu_id=$info->menu_id;
+			M('ItemPicture')->data(array(
+	     		'title_id'		=>	$title_id,
+	     		'menu_id'		=>	$menu_id,
+	     		'picture_id'	=>	$upload['fileList']['id']
+	     		))->add();
+		}else if($info->type=='task' || $info->type=='service'){
+			$userScoreId=$info->userScoreId;
+			M('UserScorePicture')->add(array(
+				'user_score_id'		=>	$userScoreId,
+				'picture_id'		=>	$upload['fileList']['id'],
+				'ord'				=>	0,
+				'addtime'			=>	date("Y-m-d H:i:s")
+				));
+		}
 
-     	$this->ajaxReturn($info);
+     	$upload['status']=0;
+     	$upload['message']="上传成功";
+     	$upload['info']=$info;
+
+     	$this->ajaxReturn($upload);
 	}
 	function bindidcard(){
 		$idcard=I('post.idcard');
@@ -165,7 +404,7 @@ class HomeController extends Controller {
 			$result['message']="没有改党员信息";
 			$this->ajaxReturn($result);
 		}
-		
+
 		$result=array();
 		if(is_idcard($idcard)){
 			$result['status']=0;
@@ -176,13 +415,37 @@ class HomeController extends Controller {
 
 		$this->ajaxReturn($result);
 	}
+	function imageOpTask(){
+		$this->islogin('USER');
+
+		$data=I('post.data');
+		$user_score_id=intval(I('post.user_score_id'));
+
+		$data=json_decode($data);
+
+		$arr=array();
+		for($i=0;$i<count($data);$i++){
+			$arr[]=$data[$i]->id;
+		}
+		$str=join(',',$arr);
+
+		M('UserScorePicture')->where(array('user_score_id'=>$user_score_id,'id'=>array('not in',$str)))->delete();
+
+		for($i=0;$i<count($data);$i++){
+			M('UserScorePicture')->where(array('id'=>$data[$i]->id))->save(array('ord'=>$data[$i]->ord));
+		}
+
+		$result=array('status'=>0,'message'=>'更新成功');
+
+		$this->ajaxReturn($result);
+	}
 	function imageOp(){
 		$this->islogin('LEADER');
 
 		$data=I('post.data');
 		$title_id=intval(I('post.title_id'));
 		$menu_id=intval(I('post.menu_id'));
-		
+
 		$data=json_decode($data);
 
 		$arr=array();
@@ -201,12 +464,13 @@ class HomeController extends Controller {
 
 		$this->ajaxReturn($result);
 	}
+
 	function titleOp(){
 		$this->islogin('ADMIN');
 
 		$data=I('post.data');
 		$title_id=intval(I('post.title_id'));
-		
+
 		$data=json_decode($data);
 
 		$arr=array();
@@ -241,6 +505,41 @@ class HomeController extends Controller {
 
 
 		$this->ajaxReturn(array('status'=>0,'message'=>'更新成功'));
+	}
+	function addService(){
+		$this->islogin('USER');
+		$user=$this->user();
+		$uid=$user['uid'];
+
+		$name=I('name');
+		$content=I('content');
+
+		$services=M('Service')->where(array('name'=>$name,'uid'=>$uid))->select();
+		if(count($services)>0){
+			$this->ajaxReturn(['status'=>0,'message'=>'服务已经提交过，不要重复提交。']);
+			return;
+		}
+
+		$id=M('Service')->add([
+			'name'		=>	$name,
+			'content'	=>	$content,
+			'score'		=>	0,
+			'year'		=>	date('Y'),
+			'addtime'	=>	date('Y-m-d H:i:s'),
+			'uid'		=>	$uid
+		]);
+		$userScoreId=0;
+		if($id>0){
+			$userScoreId=M('UserScore')->add([
+				'uid'		=>	$uid,
+				'type'		=>	2,
+				'type_id'	=>	$id,
+				'score'		=>	0,
+				'status'	=>	0,
+				'addtime'	=>	date('Y-m-d H:i:s')
+			]);
+		}
+		$this->ajaxReturn(['status'=>1,'userScoreId'=>$userScoreId,'type_id'=>$id]);
 	}
 
 }

@@ -1,0 +1,154 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+	</div>
+
+	<div class="cf">
+		<!-- <a class="btn" href="{:U('add')}">新 增</a>
+		<button class="btn ajax-post confirm" url="{:U('del')}" target-form="ids">删 除</button> -->
+		<select name="year" id="data-year" style="width:100px">
+			<option value="0">请选择年份</option>
+			<volist name="years" id="year">
+			<option value="{$year}" <eq name="year" value="$currYear">selected</eq>>{$year}年</option>
+			</volist>
+		</select>
+
+		<select name="uid" style="width:250px">
+			<option value="0">请选择党员</option>
+			<volist name="members" id="member">
+			<option value="{$member['id']}" <eq name="member.id" value="$uid">selected</eq>>{$member['realname']}-{$member['idcard']}</option>
+			</volist>
+		</select>
+	</div>
+
+	<div class="data-table table-striped">
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>名称</th>
+					<th>积分</th>
+					<th>年份</th>
+					<th>状态</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<notempty name="list">
+				<volist name="list" id="info">
+					<tr>
+						<td>{$info.id}</td>
+						<td>{$info.name}</td>
+						<td>{$info.score}</td>
+						<td>{$info.year}</td>
+						<td id="status{$info.id}">
+							<if condition="$info['userScore']['status'] eq 2">
+								通过
+							<else />
+								未通过
+							</if>
+						</td>
+						<td>
+							<a title="编辑" href="#" class="ajax-access" data-id="{$info.id}">审核通过</a>
+						</td>
+					</tr>
+				</volist>
+				<else/>
+				<td colspan="6" class="text-center"> aOh! 暂时还没有内容! </td>
+				</notempty>
+			</tbody>
+		</table>
+		<!-- 分页 -->
+	    <div class="page">
+	        {$_page}
+	    </div>
+	</div>
+</block>
+
+<block name="script">
+<script type="text/javascript">
+$(function(){
+	var uidSelect=$('select[name=uid]');
+	var yearSelect=$('select[name=year]');
+
+	yearSelect.change(function(){
+		var year=parseInt(yearSelect.val());
+		window.location.href='/admin.php?s=/Verify/index/type/0/year/'+year+'.html';
+	});
+
+	uidSelect.change(function(){
+		var year=parseInt(yearSelect.val());
+		if(0==year){
+			alertMessage({status:0,info:'请选择年份'});
+			return;
+		}
+		var uid=parseInt(uidSelect.val());
+		window.location.href='/admin.php?s=/Verify/index/type/0/year/'+year+'/uid/'+uid+'.html';
+	});
+
+	var alertMessage=function(data){
+		if (data.status==1) {
+			if (data.url) {
+				updateAlert(data.info + ' 页面即将自动跳转~','alert-success');
+			}else{
+				updateAlert(data.info ,'alert-success');
+			}
+			setTimeout(function(){
+				if (data.url) {
+					location.href=data.url;
+				}else{
+					location.reload();
+				}
+			},1500);
+		}else{
+			updateAlert(data.info);
+			setTimeout(function(){
+				if (data.url) {
+					location.href=data.url;
+				}else{
+					$('#top-alert').find('button').click();
+				}
+			},1500);
+		}
+	};
+
+	$('.ajax-access').each(function(){
+		$(this).click(function(){
+			var uid=parseInt(uidSelect.val());
+			if(!uid){
+				alertMessage({status:0,info:'请先选择党员！'});
+				return;
+			}
+			var id=$(this).data("id");
+			$.post('{:U('Verify/verifyEvent')}',{uid:uid,id:id},function(data){
+				if(data.status==1){
+					$('#status'+id).text("通过");
+				}
+				alertMessage(data);
+
+			});
+		});
+	});
+
+	// var load=function(){
+	// 	var uid=uidSelect.val();
+	// 	var year=yearSelect.val();
+	// 	if(uid==0 || year==0){
+	// 		return;
+	// 	}
+	// 	$.post('{:U('Verify/eventData')}',{type:0,uid:uid,year:year},function(data){
+	// 		console.log(data);
+	// 	});
+	// }
+	// uidSelect.change(function(){
+	// 	load();
+	// });
+	// yearSelect.change(function(){
+	// 	load();
+	// });
+
+
+});
+</script>
+</block>

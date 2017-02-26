@@ -1,0 +1,66 @@
+<style type="text/css">
+	.xtabs{
+		width:100%;
+		height:32pt;
+		line-height: 32pt;
+		clear:both;
+		background: #f8f8f8;
+	}
+	.xtab{
+		width:33.33333333%;
+		text-align: center;
+		float: left;
+		border-bottom: 1px solid #f8f8f8;
+	}
+	.xtab-active{
+		border-bottom: 1px solid #cc2311;
+		color:#cc2311;
+	}
+	.xitem{
+		margin:-1px;border:1px solid #c8c7cc;line-height: 30pt;overflow: hidden;height:40pt;padding-left:15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;
+	}
+	.xcircle{
+		height:30pt;float:left;border-radius:15pt;width:30pt;text-align: center;color:#fff
+	}
+	.fs1{
+		background: #ef4e3a;line-height:12pt;padding-top: 3pt;
+	}
+</style>
+<ion-view view-title="">
+  <div>
+  	<div class="xtabs">
+  		<div class="xtab" ng-class="{true:'xtab-active'}[tabIdx==0]" ng-click="selectTab(0)">义务分</div>
+  		<div class="xtab" ng-class="{true:'xtab-active'}[tabIdx==1]" ng-click="selectTab(1)">任务分</div>
+  		<div class="xtab" ng-class="{true:'xtab-active'}[tabIdx==2]" ng-click="selectTab(2)">服务分</div>
+  	</div>
+  </div>
+  <ion-content style="margin-top: 35pt;">
+  		<ion-list>
+  			<div ng-if="tabIdx==0" ng-repeat="score in scores" class="xitem" ng-click="go('eventDetail',{type:tabIdx,type_id:score.id})">
+  					<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
+  					<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+
+  					&nbsp;&nbsp;&nbsp;{{score.name}}
+  			</div>
+
+  			<div ng-if="tabIdx==1" ng-repeat="score in scores" class="xitem" ng-click="go('taskDetail',{type:tabIdx,type_id:score.id})">
+  				<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
+  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+  				&nbsp;&nbsp;&nbsp;{{score.name}}
+  			</div>
+
+			<div ng-if="tabIdx==2" ng-repeat="score in scores" class="xitem" ng-click="go('serviceDetail',{type:tabIdx,type_id:score.id})">
+  				<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
+  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+  				&nbsp;&nbsp;&nbsp;{{score.name}}
+  			</div>
+
+
+  		</ion-list>
+  	</ion-content>
+	<div ng-if="tabIdx==2">
+		<div class="bar bar-footer bar-balanced" ng-click="go('addService',{})">
+		  <div class="title">提交我的服务</div>
+		</div>
+	</div>
+</ion-view>

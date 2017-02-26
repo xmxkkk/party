@@ -1,0 +1,100 @@
+<extend name="Public/base"/>
+
+<block name="body">
+	<div class="main-title">
+		<h2>
+
+		</h2>
+	</div>
+	<!-- <form action="{:U('verify/verifyTask',['id'=>$info['id']])}" method="post" class="form-horizontal"> -->
+		<div class="form-item">
+			<label class="item-label">服务名称<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="name" value="{$info.service.name|default=''}" disabled="true">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">服务描述<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="content" value="{$info.service.content|default=''}" disabled="true">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">完成服务的党员<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="name" value="{$info.user.realname|default=''}" disabled="true">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">服务积分&nbsp;&nbsp;&nbsp;<span class="check-tips">(<span style="color:red">*</span>需要管理员输入</span>)</label>
+			<div class="controls">
+				<input type="text" class="text input-small" name="score" value="{$info.service.score|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">服务年份<span class="check-tips"></span></label>
+			<div class="controls">
+				<select name="year" id="data-year" disabled="true">
+                <volist name="years" id="year">
+                <option value="{$year}" <eq name="year" value="$info.service.year">selected</eq>>{$year}</option>
+                </volist>
+                </select>
+			</div>
+		</div>
+		<div class="form-item">
+            <label class="item-label">提交的资料<span class="check-tips"></span></label>
+        	<div class="controls">
+                <volist name="info.userScorePictures" id="picture">
+					<img src="{$picture['picture_path']}" style="width:800px;"/>
+                </volist>
+            </div>
+        </div>
+		<div class="alert-content"></div>
+		<div class="form-item">
+			<input type="hidden" name="id" value="{$info.id|default=''}">
+			<button class="btn btn-xlarge submit-btn-yes" target-form="form-horizontal">通过</button>
+			<button class="btn btn-xlarge submit-btn-no" target-form="form-horizontal">不通过</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	<!-- </form> -->
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:U('index')}');
+	$(function(){
+		var submitFunc=function(verify){
+			var id=$('input[name=id]').val();
+			var score=parseInt($('input[name=score]').val());
+
+			$.post('{:U('Verify/verifyService')}',{id:id,verify:verify,score:score},function(data){
+                if (data.status==1) {
+                    if (data.url) {
+                        updateAlert(data.info + ' 页面即将自动跳转~','alert-success');
+                    }else{
+                        updateAlert(data.info ,'alert-success');
+                    }
+                    setTimeout(function(){
+                        if (data.url) {
+                            location.href=data.url;
+                        }else{
+                            location.reload();
+                        }
+                    },1500);
+                }else{
+                    updateAlert(data.info);
+                    setTimeout(function(){
+                        if (data.url) {
+                            location.href=data.url;
+                        }else{
+                            $('#top-alert').find('button').click();
+                        }
+                    },1500);
+                }
+			});
+		};
+		$('.submit-btn-yes').click(function(){submitFunc(1)});
+		$('.submit-btn-no').click(function(){submitFunc(0)});
+	});
+</script>
+</block>

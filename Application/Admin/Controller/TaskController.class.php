@@ -17,8 +17,16 @@ class TaskController extends AdminController {
     public function __construct(){
         parent::__construct();
         $this->assign('groups',M('group')->select());
+
+        $startYear=intval(C('SCORE_START_YEAR'));
+        $endYear=date('Y');
+        $years=array();
+        for($i=$endYear;$i>=$startYear;$i--){
+            $years[$i]=$i;
+        }
+        $this->assign('years',$years);
     }
-    
+
     public function combine(&$task){
         $task['status_name']=get_task_status()[$task['status']];
 
@@ -37,7 +45,7 @@ class TaskController extends AdminController {
         }else{
             $task['group_name']='全部小组';
         }
-        
+
     }
     public function combines(&$list){
         for($i=0;$i<count($list);$i++){
@@ -138,7 +146,7 @@ class TaskController extends AdminController {
             $_POST['handleuids']=$handleuids;
             $_POST['status']=1;
             $_POST['handletime']=date("Y-m-d H:i:s");
-            
+
             $size=count($uids);
             $score=I('score');
 
@@ -205,21 +213,23 @@ class TaskController extends AdminController {
             $this->error('请选择要操作的数据!');
         }
 
-        $map = array('id' => array('in', $id) ,'status'=>array('in',[1]));
+		$id=$id[0];
 
-        $task=M('Task')->where($map)->select();
-        if($task){
-            $this->error('删除失败！改任务已经完成。');
-        }
-        $map = array('id' => array('in', $id));
+		$task_condi=['type'=>1,'type_id'=>$id,'status'=>2];
 
-        if(M('Task')->where($map)->delete()){
-            //记录行为
-            action_log('update_task', 'task', $id, UID);
+		$userScore=M('userScore')->where($task_condi)->select();
+		if($userScore){
+			$this->error('删除失败！该任务已经完成。');
+		}
+
+		if(M('Task')->where(['id'=>$id])->delete()){
+			M('UserScore')->where(['type'=>1,'type_id'=>$id])->delete();
+			action_log('update_task', 'task', $id, UID);
             $this->success('删除成功');
-        } else {
-            $this->error('删除失败！');
-        }
+		}else{
+			$this->error('删除失败！');
+		}
+
     }
 
     public function setStatus($model='Task'){
