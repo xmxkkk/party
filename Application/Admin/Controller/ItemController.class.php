@@ -16,11 +16,13 @@ namespace Admin\Controller;
 class ItemController extends AdminController {
     public function __construct(){
         parent::__construct();
+		$this->assign('types',array('item'=>"列表",'article'=>"文章"));
         C('LIST_ROWS',20);
     }
 
     public function combine(&$item){
-		$item['url']='http://'.$_SERVER['HTTP_HOST'].'/weixin/#/item/'.$item['id'];
+		$item['url']='http://'.$_SERVER['HTTP_HOST'].'/weixin/#/'.$item['type'].'/'.$item['id'];
+		$item['type_name']=array('item'=>"列表",'article'=>"文章")[$item['type']];
     }
     public function combines(&$list){
         for($i=0;$i<count($list);$i++){

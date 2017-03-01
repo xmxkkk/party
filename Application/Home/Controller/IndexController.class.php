@@ -14,7 +14,7 @@ class IndexController extends Controller {
         );
         vendor("phpqrcode.phpqrcode");
         $object = new \QRcode();
-        
+
         $level=3;
         $size=8;
         $errorCorrectionLevel ="M";//intval($level) ;//容错级别
@@ -57,7 +57,7 @@ class IndexController extends Controller {
         for($i=0;$i<count($news);$i++){
             $news[$i]['summary']=strip_tags($news[$i]['content']);
             if(mb_strlen($news[$i]['summary'])>100){
-                $news[$i]['summary']=mb_substr($news[$i]['summary'], 0,100);  
+                $news[$i]['summary']=mb_substr($news[$i]['summary'], 0,100);
             }
             $picture=M('Picture')->where(['id'=>$news[$i]['cover']])->find();
             if($picture){
@@ -67,7 +67,6 @@ class IndexController extends Controller {
                 $news[$i]['cover_url']='';
                 $news[$i]['is_cover']=0;
             }
-            
         }
 
         $result=[];
@@ -129,11 +128,11 @@ class IndexController extends Controller {
         }
 
         $data=M()->query("select * from (
-select a.*,b.name from __PREFIX__user_event a 
+select a.*,b.name from __PREFIX__user_event a
 left join __PREFIX__event b on a.third_id=b.id
 where a.uid=".$member['id']." and a.type=0
 union all
-select a.*,b.name from __PREFIX__user_event a 
+select a.*,b.name from __PREFIX__user_event a
 left join __PREFIX__task b on a.third_id=b.id
 where a.uid=".$member['id']." and a.type=1
 ) x where x.status in (0,1) order by x.addtime desc limit ".($p*$len).",".$len);
@@ -256,7 +255,7 @@ where a.uid=".$member['id']." and a.type=1
         $member=D('member2')->where(['id'=>$id])->find();
 
         $tasks=D('task')->where('status=0 and (gid=0 or gid='.$member['groupid'].')')->order('id desc')->select();
-        
+
         $result['tasks']=$tasks;
         $result['status']=0;
         return $this->ajaxReturn($result);
@@ -268,7 +267,7 @@ where a.uid=".$member['id']." and a.type=1
 
         $phone=trim(I('phone',""));
         $password=md5(trim(I('password')));
-        
+
         $member=D('member2')->where(['phone'=>$phone])->find();
         if(!$member){
             $result=['status'=>1,'message'=>'手机号错误'];

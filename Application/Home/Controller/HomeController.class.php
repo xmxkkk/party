@@ -335,6 +335,59 @@ class HomeController extends Controller {
 
 		$this->ajaxReturn($result);
 	}
+	function articleDetail(){
+		$id=intval(I('id'));
+		$new=M('news')->where(array('id'=>$id))->find();
+
+		$picture=M('picture')->where(array('id'=>$new['cover']))->find();
+		if(empty($picture)){
+			$new['is_cover']=0;
+			$new['cover_path']=null;
+		}else{
+			$new['is_cover']=1;
+			$new['cover_path']=$picture['path'];
+		}
+
+		$item=M('item')->where(array('id'=>$new['article_id']))->find();
+
+		$result=array();
+		$result['new_']=$new;
+		$result['item']=$item;
+
+		$this->ajaxReturn($result);
+	}
+	function article($article_id=0){
+		$pageNo=intval(I('pageNo'));
+		$len=4;
+
+		$item=M('item')->where(array('id'=>$article_id,'type'=>'article'))->find();
+
+		$news=M('news')->where(array('article_id'=>$article_id,'type'=>3))->order('is_top desc')->limit($pageNo*$len.",".$len)->select();
+		for($i=0;$i<count($news);$i++){
+			$picture=M('picture')->where(array('id'=>$news[$i]['cover']))->find();
+			if(empty($picture)){
+				$news[$i]['is_cover']=0;
+			}else{
+				$news[$i]['is_cover']=1;
+				$news[$i]['cover_path']=$picture['path'];
+			}
+
+			$news[$i]['summary']=strip_tags($news[$i]['content']);
+            if(mb_strlen($news[$i]['summary'])>100){
+                $news[$i]['summary']=mb_substr($news[$i]['summary'], 0,100);
+            }
+		}
+
+		if(empty($news)){
+			$news=[];
+		}
+
+		$result=array();
+		$result['news']=$news;
+		$result['item']=$item;
+
+		$this->ajaxReturn($result);
+	}
 	function menu(){
 		$item_id=I('post.item_id');
 		$year=intval(I('post.year'));

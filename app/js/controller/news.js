@@ -1,6 +1,6 @@
 module.controller('NewsCtrl',['$scope','$state','ObjectFactory','$http','$ionicPopup','$stateParams','$location','$window','$ionicHistory'
     ,function($scope,$state,ObjectFactory,$http,$ionicPopup,$stateParams,$location,$window,$ionicHistory){
-    
+
     $scope.init=function(){
         $scope.page={
             pageNo:0,
@@ -8,6 +8,7 @@ module.controller('NewsCtrl',['$scope','$state','ObjectFactory','$http','$ionicP
             items:[],
             pageSize:0
         }
+
         if($stateParams.type==1){
             $scope.page.title="支部公告";
         }else if($stateParams.type==2){
@@ -18,6 +19,7 @@ module.controller('NewsCtrl',['$scope','$state','ObjectFactory','$http','$ionicP
 
     $scope.loadMore=function(){
         $http.post($scope.baseUrl+'?m=Home&c=Index&a=news',{p:$scope.page.pageNo,type:$stateParams.type}).success(function(data){
+			
             if(!data.news || data.news.length==0){
                 $scope.page.more=1;
                 data.news=[];

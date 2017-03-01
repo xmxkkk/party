@@ -122,6 +122,20 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     controller: 'LoginCtrl',
     cache:'false'
   })
+  .state('article', {
+    url: '/article/:article_id',
+    abstract: false,
+    templateUrl: 'templates/article.html',
+    controller: 'ArticleCtrl',
+    cache:'false'
+  })
+  .state('articleDetail', {
+    url: '/articleDetail/:id',
+    abstract: false,
+    templateUrl: 'templates/articleDetail.html',
+    controller: 'ArticleDetailCtrl',
+    cache:'false'
+  })
 
   ;
 
