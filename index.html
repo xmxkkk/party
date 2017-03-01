@@ -1,0 +1,36 @@
+<input type="file" accept="image/*;" capture="camera" id="file">
+
+<script type="text/javascript">
+	var compress=function(data){
+		var img=new Image();
+		var maxW=800;
+		img.onload=function(){
+			var canvas=document.createElement("canvas");
+			var ctx=canvas.getContext('2d');
+			if(img.width>maxW){
+				img.height*=maxW/img.width;
+				img.width=maxW;
+			}
+			canvas.width=img.width;
+			canvas.height=img.height;
+
+			ctx.clearRect(0,0,canvas.width,canvas.height);
+			ctx.drawImage(img,0,0,img.width,img.height);
+
+			var dataUrl=canvas.toDataURL('image/jpeg',0.5);
+
+
+		}
+		img.src=data;
+	}
+	document.getElementById('file').addEventListener('change',function(){
+		var reader=new FileReader();
+		reader.onload=function(e){
+			// console.log(this.result);
+			// document.getElementById('image').src=this.result;
+			var data=compress(this.result);
+			document.getElementById('image').src=data;
+		}
+		reader.readAsDataURL(this.files[0]);
+	});
+</script>

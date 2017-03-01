@@ -1,11 +1,12 @@
-<ion-view>
+<input type="file" accept="image/*" capture="camera" id="file" style="display:none;">
+<ion-view ng-init="init()">
 	<ion-content>
 		<div style="padding-left:10dp;padding-right:10dp;">
-		<img src="" style="width:100%;">
+		<img src="./img/cam.png" style="width:100%;" ng-click="camera()" id="img">
 		</div>
-		
+
 	</ion-content>
-	<div class="bar bar-footer bar-dark" ng-click="upload()">
+	<div class="bar bar-footer" ng-class="{false:'bar-dark',true:'bar-assertive'}[canUpload]" ng-click="upload()">
 		<div class="title">上传</div>
 	</div>
 </ion-view>

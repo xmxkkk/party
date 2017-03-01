@@ -28,6 +28,7 @@ class TaskController extends AdminController {
     }
 
     public function combine(&$task){
+		//[0=>"进行中",1=>"已解决",2=>"撤销"]
         $task['status_name']=get_task_status()[$task['status']];
 
         if($task['handleuids']){

@@ -60,6 +60,7 @@ class PictureModel extends Model{
             return $info; //文件上传成功
         } else {
             $this->error = $Upload->getError();
+			// file_put_contents('a.log2',$this->error);
             return false;
         }
     }

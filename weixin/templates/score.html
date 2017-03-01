@@ -38,20 +38,20 @@
   		<ion-list>
   			<div ng-if="tabIdx==0" ng-repeat="score in scores" class="xitem" ng-click="go('eventDetail',{type:tabIdx,type_id:score.id})">
   					<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
-  					<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+  					<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未<br>完成</span>
 
   					&nbsp;&nbsp;&nbsp;{{score.name}}
   			</div>
 
   			<div ng-if="tabIdx==1" ng-repeat="score in scores" class="xitem" ng-click="go('taskDetail',{type:tabIdx,type_id:score.id})">
   				<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
-  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未<br>完成</span>
   				&nbsp;&nbsp;&nbsp;{{score.name}}
   			</div>
 
 			<div ng-if="tabIdx==2" ng-repeat="score in scores" class="xitem" ng-click="go('serviceDetail',{type:tabIdx,type_id:score.id})">
   				<span ng-if="score.userScore&&score.userScore.status==2" class="xcircle" style="background: #66cc33;">+{{score.userScore.score}}</span>
-  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未完成</span>
+  				<span ng-if="!(score.userScore&&score.userScore.status==2)" class="xcircle fs1">未<br>完成</span>
   				&nbsp;&nbsp;&nbsp;{{score.name}}
   			</div>
 

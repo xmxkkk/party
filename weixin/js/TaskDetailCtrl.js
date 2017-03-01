@@ -63,19 +63,22 @@ module.controller('TaskDetailCtrl', function($scope,$rootScope,$http,$stateParam
     }
 
    $scope.takePicture=function(obj){
-        console.log(obj);
-        var file=$("input[type=file]");
-        file.val("");
+        // console.log(obj);
+        // var file=$("input[type=file]");
+        // file.val("");
+		//
+        // file.change(function(){
+        //     var objUrl=$scope.getObjectURL(this.files[0]);
+        //     obj.url=objUrl;
+        //     console.log(obj);
+        //     ObjectFactory.set('file',this.files[0]);
+        //     ObjectFactory.set("info",obj);
+        //     $scope.go('upload',{});
+        // });
+        // file.click();
 
-        file.change(function(){
-            var objUrl=$scope.getObjectURL(this.files[0]);
-            obj.url=objUrl;
-            console.log(obj);
-            ObjectFactory.set('file',this.files[0]);
-            ObjectFactory.set("info",obj);
-            $scope.go('upload',{});
-        });
-        file.click();
+		ObjectFactory.set("info",obj);
+		$scope.go('upload',{});
     }
 
     $scope.submitVerify=function(user_score_id){

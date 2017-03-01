@@ -34,39 +34,44 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     url: '/index',
     abstract: false,
     templateUrl: 'templates/index.html',
-    controller: 'IndexCtrl'
+    controller: 'IndexCtrl',
+    cache:'false'
   })
-  .state('title', {
-    url: '/title/:item_id',
+  .state('item', {
+    url: '/item/:item_id',
     abstract: false,
-    templateUrl: 'templates/title.html',
-    controller: 'TitleCtrl'
+    templateUrl: 'templates/item.html',
+    controller: 'ItemCtrl',
+    cache:'false'
   })
   .state('menu', {
-    url: '/menu/:title_id/:item_id',
+    url: '/menu/:item_id/:year',
     abstract: false,
     templateUrl: 'templates/menu.html',
     controller: 'MenuCtrl',
     cache:false
   })
   .state('preview', {
-    url: '/preview/:title_id/:menu_id',
+    url: '/preview/:menu_id',
     abstract: false,
     templateUrl: 'templates/preview.html',
-    controller: 'PreviewCtrl'
+    controller: 'PreviewCtrl',
+    cache:'false'
   })
   .state('upload', {
     url: '/upload',
     abstract: false,
     templateUrl: 'templates/upload.html',
-    controller: 'UploadCtrl'
+    controller: 'UploadCtrl',
+    cache:'false'
   })
 
   .state('bindidcard', {
     url: '/bindidcard',
     abstract: false,
     templateUrl: 'templates/bindidcard.html',
-    controller: 'BindidcardCtrl'
+    controller: 'BindidcardCtrl',
+    cache:'false'
   })
   .state('core', {
     url: '/core',
@@ -86,7 +91,8 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     url: '/eventDetail/:type/:type_id',
     abstract: false,
     templateUrl: 'templates/EventDetail.html',
-    controller: 'EventDetailCtrl'
+    controller: 'EventDetailCtrl',
+    cache:'false'
   })
   .state('taskDetail', {
     url: '/taskDetail/:type/:type_id',
@@ -109,11 +115,18 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     controller: 'AddServiceCtrl',
     cache:'false'
   })
+  .state('login', {
+    url: '/login',
+    abstract: false,
+    templateUrl: 'templates/login.html',
+    controller: 'LoginCtrl',
+    cache:'false'
+  })
 
   ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/title/2');
+  $urlRouterProvider.otherwise('/index');
 
   $httpProvider.defaults.transformRequest=function(obj){
     var str=[];

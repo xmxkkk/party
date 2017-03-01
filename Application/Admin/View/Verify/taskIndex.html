@@ -15,26 +15,22 @@
 		<table>
 			<thead>
 				<tr>
-					<th class="row-selected">
-						<input class="checkbox check-all" type="checkbox">
-					</th>
-					<th>ID</th>
-					<th>用户</th>
+					<th style="width:50px;">ID</th>
 					<th>任务</th>
-					<th>积分</th>
-					<th>年份</th>
-					<th>状态</th>
-					<th>操作</th>
+					<th style="width:100px;">用户</th>
+					<th style="width:100px;">积分</th>
+					<th style="width:100px;">年份</th>
+					<th style="width:100px;">状态</th>
+					<th style="width:100px;">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<notempty name="list">
 				<volist name="list" id="info">
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$info.id}"></td>
 						<td>{$info.id}</td>
-						<td>{$info.user.realname}</td>
 						<td>{$info.task.name}</td>
+						<td>{$info.user.realname}</td>
 						<td>{$info.task.score}</td>
 						<td>{$info.task.year}</td>
 						<td>
@@ -52,7 +48,6 @@
 								<case value="2">无</case>
 								<case value="3"><a title="编辑" href="{:U('verifyTask?id='.$info['id'])}">审核</a></case>
 							</switch>
-
 						</td>
 					</tr>
 				</volist>

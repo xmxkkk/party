@@ -19,25 +19,6 @@
 				<textarea class="text input-large" style="height:120px;" name="content">{$info.content|default=''}</textarea>
 			</div>
 		</div>
-        <div class="form-item">
-            <label class="item-label">开始时间<span class="check-tips"></span></label>
-            <div class="controls">
-                <input type="text" class="text input-middle time" name="starttime" value="{$info.starttime|time_format_str}">
-            </div>
-        </div>
-        <div class="form-item">
-            <label class="item-label">结束时间<span class="check-tips"></span></label>
-            <div class="controls">
-                <input type="text" class="text input-middle time" name="endtime" value="{$info.endtime|time_format_str}">
-            </div>
-        </div>
-        <div class="form-item">
-			<label class="item-label">解决方案<span class="check-tips"></span></label>
-			<div class="controls">
-				<textarea class="text input-large" style="height:120px;" name="handle">{$info.handle|default=''}</textarea>
-			</div>
-		</div>
-		<if condition="$info.status == 0 OR $info.status == 2">
 		<div class="form-item">
 			<label class="item-label">积分<span class="check-tips"></span></label>
 			<div class="controls">
@@ -54,17 +35,6 @@
                 </select>
 			</div>
 		</div>
-		<div class="form-item">
-            <label class="item-label">小组<span class="check-tips"></span></label>
-        	<div class="controls">
-            	<select name="gid" id="data-type">
-                <volist name=":get_event_group()" id="group">
-                <option value="{$key}" <eq name="key" value="$info.gid">selected</eq>>{$group['name']}</option>
-                </volist>
-                </select>
-            </div>
-        </div>
-        </if>
 		<div class="form-item">
 			<input type="hidden" name="id" value="{$info.id|default=''}">
 			<button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>

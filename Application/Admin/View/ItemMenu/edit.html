@@ -1,0 +1,54 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <div class="main-title">
+        <h2>
+            {$info['id']?'编辑':'新增'}菜单
+        </h2>
+    </div>
+    <form action="{:U()}" method="post" class="form-horizontal">
+        <div class="form-item">
+            <label class="item-label">菜单名<span class="check-tips"></span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+            </div>
+        </div>
+		<div class="form-item">
+			<label class="item-label">所属栏目<span class="check-tips"></span></label>
+			<div class="controls">
+				<select name="item_id" id="data-item">
+                <volist name="items" id="item">
+                <option value="{$item.id}" <eq name="item.id" value="$info.item_id">selected</eq>>{$item.name}</option>
+                </volist>
+                </select>
+			</div>
+		</div>
+		<div class="form-item">
+            <label class="item-label">年份<span class="check-tips">举例：2016</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="year" value="{$info.year|default=''}">
+            </div>
+        </div>
+		<div class="form-item">
+            <label class="item-label">顺序<span class="check-tips">举例：1</span></label>
+            <div class="controls">
+                <input type="text" class="text input-large" name="ord" value="{$info.ord|default=''}">
+            </div>
+        </div>
+
+        <div class="form-item">
+            <input type="hidden" name="id" value="{$info.id|default=''}">
+            <button class="btn submit-btn ajax-post" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+            <button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+        </div>
+    </form>
+</block>
+<block name="script">
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:U('index')}');
+$(function(){
+
+});
+</script>
+</block>

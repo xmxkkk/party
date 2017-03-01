@@ -17,16 +17,14 @@ use Think\Controller;
 class HomeController extends Controller {
 	function __construct(){
 		parent::__construct();
-		session('uid',1);
-		session('isleader',1);
-		session('isadmin',1);
-
+		// session('uid',0);
+		// session('isleader',0);
+		// session('isadmin',0);
 	}
 	private function user(){
 		$uid=empty(session('uid'))?0:session('uid');
 		$isleader=empty(session('isleader'))?0:session('isleader');
 		$isadmin=empty(session('isadmin'))?0:session('isadmin');
-
 
 		return array('uid'=>$uid,'isleader'=>$isleader,'isadmin'=>$isadmin);
 	}
@@ -59,8 +57,29 @@ class HomeController extends Controller {
 			return $user;
 		}
 	}
+	function index(){
+		$this->islogin('USER');
 
+		$items=M('item')->select();
+
+		$this->ajaxReturn(['status'=>1,'data'=>$items]);
+	}
+	function login(){
+		$phone=I('phone');
+		$member=M('member2')->where(array('phone'=>$phone))->find();
+		if(empty($member)){
+			$this->ajaxReturn(['status'=>0,'message'=>'没有该帐号']);
+		}
+
+		session('uid',$member['id']);
+		// session('isleader',1);
+		session('isadmin',$member['is_admin']);
+
+		$this->ajaxReturn(['status'=>1,'message'=>'登录成功']);
+	}
 	function core(){
+		$this->islogin('USER');
+
 		$user=$this->user();
 		$uid=$user['uid'];
 		$member2=M('Member2')->where(array('id'=>$uid))->find();
@@ -299,22 +318,29 @@ class HomeController extends Controller {
 		$this->ajaxReturn($result);
 	}
 
-	function title($item_id=0){
+	function item($item_id=0){
 		$item=M('item')->where(array('id'=>$item_id))->find();
-		$item_titles=M('ItemTitle')->where(array('item_id'=>$item_id))->order('ord')->select();
+
+		$startYear=intval($item['year']);
+		$endYear=date('Y');
+
+		$temp=array();
+		for($i=$endYear;$i>=$startYear;$i--){
+			$temp[]=['name'=>$i."年".$item['name'],'year'=>$i];
+		}
 
 		$result=array();
 		$result['item']=$item;
-		$result['item_titles']=$item_titles;
+		$result['item_titles']=$temp;
 
 		$this->ajaxReturn($result);
 	}
 	function menu(){
 		$item_id=I('post.item_id');
-		$title_id=I('post.title_id');
+		$year=intval(I('post.year'));
 
-		$item_title=M('ItemTitle')->where(array('id'=>$title_id))->find();
-		$item_menus=M('ItemMenu')->where(array('item_id'=>$item_id))->order('ord')->select();
+		$item=M('item')->where(array('id'=>$item_id))->find();
+		$item_menus=M('ItemMenu')->where(array('item_id'=>$item_id,'year'=>$year))->order('ord')->select();
 
 		for($i=0;$i<count($item_menus);$i++){
 			$cnt=M('ItemPicture')->where(array('menu_id'=>$item_menus[$i]['id'],'title_id'=>$title_id))->count();
@@ -322,13 +348,13 @@ class HomeController extends Controller {
 		}
 
 		$result=$this->user();
-		$result['item_title']=$item_title;
+		$result['item']=$item;
 		$result['item_menus']=$item_menus;
 
 		$this->ajaxReturn($result);
 	}
 	function picture($menu_id=0,$title_id=0){
-		$pictures=M('ItemPicture')->where(array('menu_id'=>$menu_id,'title_id'=>$title_id))->order('ord')->select();
+		$pictures=M('ItemPicture')->where(array('menu_id'=>$menu_id,'title_id'=>$title_id))->order('ord asc,addtime asc')->select();
 
 		for($i=0;$i<count($pictures);$i++){
 			$pic=M('picture')->where(array('id'=>$pictures[$i]['picture_id']))->find();
@@ -342,7 +368,77 @@ class HomeController extends Controller {
 
 		$this->ajaxReturn($result);
 	}
+	function upload(){
+		$info=I('post.data');
+		$info=json_decode($info);
 
+		if($info->type=='menu'){
+			$this->islogin('LEADER');
+		}else if($info->type=='task' || $info->type=='service'){
+			$this->islogin('USER');
+		}else{
+			echo 2;
+		}
+
+		$data=$info->data;
+
+		$filename=md5($data);
+
+		$picture=D('Admin/Picture')->where(array("md5"=>$filename))->find();
+		if(empty($picture)){
+			$image = base64_decode(str_replace("data:image/jpeg;base64,", "", $data));
+			$dir="./Uploads/Picture/".date('Y-m-d')."/";
+			mkdir($dir);
+
+			$filepath=$dir.substr($filename,0,16).".jpg";
+			file_put_contents($filepath, $image);
+
+			$md5=$filename;
+			$sha1=sha1_file($filepath);
+
+			$id=M('picture')->add(array(
+				'path'		=>	substr($filepath,1),
+				'url'		=>	'',
+				'md5'		=>	$md5,
+				'sha1'		=>	$sha1,
+				'status'	=>	1,
+				'create_time'=>	time()
+			));
+
+			$picture=D('Admin/Picture')->where(array('id'=>$id))->find();
+		}
+
+		if($info->type=='menu'){
+			$title_id=$info->title_id;
+			$menu_id=$info->menu_id;
+			M('ItemPicture')->data(array(
+	     		'menu_id'		=>	$menu_id,
+	     		'picture_id'	=>	$picture['id'],
+				'ord'			=>	10000,
+				'addtime'		=>	date('Y-m-d H:i:s')
+	     		))->add();
+		}else if($info->type=='task' || $info->type=='service'){
+			$userScoreId=$info->userScoreId;
+			M('UserScorePicture')->add(array(
+				'user_score_id'		=>	$userScoreId,
+				'picture_id'		=>	$picture['id'],
+				'ord'				=>	0,
+				'addtime'			=>	date("Y-m-d H:i:s")
+				));
+		}
+		$upload=array();
+     	$upload['status']=0;
+     	$upload['message']="上传成功";
+     	$upload['info']=$picture;
+
+     	$this->ajaxReturn($upload);
+
+
+
+		// $image = base64_decode(str_replace('data:image/jpeg;base64,' '', $info));
+		// file_put_contents('text.jpg', $image);
+	}
+	/*
 	function upload(){
 		$info=I('post.info');
 		$info=json_decode($info);
@@ -364,13 +460,15 @@ class HomeController extends Controller {
             C('PICTURE_UPLOAD_DRIVER'),
             C("UPLOAD_{$pic_driver}_CONFIG")
         );
+		file_put_contents('a.log',json_encode($Picture->error));
         if($info->type=='menu'){
 			$title_id=$info->title_id;
 			$menu_id=$info->menu_id;
 			M('ItemPicture')->data(array(
-	     		'title_id'		=>	$title_id,
 	     		'menu_id'		=>	$menu_id,
-	     		'picture_id'	=>	$upload['fileList']['id']
+	     		'picture_id'	=>	$upload['fileList']['id'],
+				'ord'			=>	10000,
+				'addtime'		=>	date('Y-m-d H:i:s')
 	     		))->add();
 		}else if($info->type=='task' || $info->type=='service'){
 			$userScoreId=$info->userScoreId;
@@ -387,7 +485,7 @@ class HomeController extends Controller {
      	$upload['info']=$info;
 
      	$this->ajaxReturn($upload);
-	}
+	}*/
 	function bindidcard(){
 		$idcard=I('post.idcard');
 		$openid=I('post.openid');

@@ -1,7 +1,7 @@
 <input type="file" accept="image/*" multiple="multiple" style="display:none;" />
 <ion-view view-title="">
 	<div class="bar bar-header common-title-bg gray1">
-		<div class="h1 title"><b>{{item.item_title.title}}</b></div>
+		<div class="h1 title"><b>{{year}}年{{item.item.name}}</b></div>
     </div>
 	<ion-content class="common-bg has-header ">
 		<div class="padding">
@@ -10,7 +10,8 @@
 					<div style="clear:both;display:block;">
 						<button ng-show="item.isleader" class="button button-block button-balanced" style="float:right;width:15%;margin-bottom:5px;" ng-click="takePicture({title_id:item.item_title.id,menu_id:menu.id,type:'menu'})"><i class="icon ion-ios-camera"></i></button>
 
-						<button class="button button-block button-light" style="float:left;clear:none;margin-bottom:5px;" ng-style="item.isleader==0?{width:'100%'}:{width:'84%'}" ng-click="go('preview',{title_id:item.item_title.id,menu_id:menu.id,type:'menu'})">
+						<button class="button button-block button-light" style="float:left;clear:none;margin-bottom:5px;"
+							ng-style="item.isleader==0?{width:'100%'}:{width:'84%'}" ng-click="go('preview',{menu_id:menu.id,type:'menu'})">
 						 	{{menu.name}}
 						</button>
 					</div>

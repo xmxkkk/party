@@ -1,15 +1,15 @@
 <ion-view view-title="">
-	
+
 	<div class="bar bar-header common-title-bg gray1">
 		<div class="h1 title"><b>{{item.item.name}}</b></div>
     </div>
 	<ion-content class=" common-bg has-header">
 		<div class="padding">
 			<div ng-repeat="title in item.item_titles">
-				<button class="button button-block button-light" ng-click="go('menu',{title_id:title.id,item_id:title.item_id})">
-				 	{{title.title}}
+				<button class="button button-block button-light" ng-click="go('menu',{item_id:item.item.id,year:title.year})">
+				 	{{title.name}}
 				</button>
-				<div style="margin-top:-5px;text-align:center;">
+				<div ng-if="false" style="margin-top:-5px;text-align:center;">
 					<i class="button button-small button-dark icon ion-arrow-up-c" ng-click="titleOp(title,'up',title.id)"></i>
 					<i class="button button-small button-dark icon ion-arrow-down-c" ng-click="titleOp(title,'down',title.id)"></i>
 					<i class="button button-small button-dark icon ion-edit" ng-click="titleOp(title,'edit',title.id)"></i>
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</ion-content>
-	<div class="bar bar-footer bar-dark" ng-click="addTitle(item.item.id)">
+	<div ng-if="false" class="bar bar-footer bar-dark" ng-click="addTitle(item.item.id)">
 		<div class="title">新增{{item.item.name}}</div>
 	</div>
 </ion-view>

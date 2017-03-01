@@ -1,4 +1,4 @@
-module.controller('TitleCtrl', function($scope,$rootScope,$http,$stateParams) {
+module.controller('ItemCtrl', function($scope,$rootScope,$http,$stateParams) {
     console.log($stateParams);
 
     $rootScope.data={
@@ -70,7 +70,7 @@ module.controller('TitleCtrl', function($scope,$rootScope,$http,$stateParams) {
     }
 
     var requestData=function(){
-        $http.get($scope.baseUrl+'/Home/home/title/item_id/'+$stateParams.item_id+".html",{}).success(function(data){
+        $http.get($scope.baseUrl+'/Home/home/item/item_id/'+$stateParams.item_id+".html",{}).success(function(data){
             $scope.item=data;
             console.log($scope.item);
         });
@@ -89,5 +89,5 @@ module.controller('TitleCtrl', function($scope,$rootScope,$http,$stateParams) {
         });
     }
     requestData();
-   
+
 })

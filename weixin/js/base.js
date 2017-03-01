@@ -36,12 +36,15 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
 
 		var stateName=$rootScope.previousState_name.pop();
 		var params=$rootScope.previousState_params.pop();
+
 		if(stateName){
 			if(stateName=='upload'||stateName=='addService'){
 				$rootScope.back();
 			}else{
 				$state.go(stateName,params);
 			}
+		}else{
+			$state.go('index',{});
 		}
     };
 
@@ -118,6 +121,14 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
             if(cb)cb(res);
         });
     }
+	$rootScope.islogin=function(result){
+		if(result.status==999){
+			$rootScope.alert(result.message,function(){
+				$rootScope.go('login',{});
+			},true);
+		}
+
+	}
     $rootScope.getObjectURL=function(file) {
         var url = null ;
         if (window.createObjectURL!=undefined) { // basic

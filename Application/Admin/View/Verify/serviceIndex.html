@@ -15,25 +15,21 @@
 		<table>
 			<thead>
 				<tr>
-					<th class="row-selected">
-						<input class="checkbox check-all" type="checkbox">
-					</th>
-					<th>ID</th>
-					<th>用户</th>
+					<th style="width:50px;">ID</th>
 					<th>服务名</th>
-					<th>年份</th>
-					<th>状态</th>
-					<th>操作</th>
+					<th style="width:100px;">用户</th>
+					<th style="width:100px;">年份</th>
+					<th style="width:100px;">状态</th>
+					<th style="width:100px;">操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<notempty name="list">
 				<volist name="list" id="info">
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="id[]" value="{$info.id}"></td>
 						<td>{$info.id}</td>
-						<td>{$info.user.realname}</td>
 						<td>{$info.service.name}</td>
+						<td>{$info.user.realname}</td>
 						<td>{$info.service.year}</td>
 						<td>
 							<switch name="info.status">

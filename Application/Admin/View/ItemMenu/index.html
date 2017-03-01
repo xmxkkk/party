@@ -17,9 +17,10 @@
                         <input class="checkbox check-all" type="checkbox">
                     </th>
                     <th style="width:50px;">ID</th>
-                    <th>标题</th>
-                    <th style="width:100px;">类型</th>
-                    <th style="width:150px;">发布时间</th>
+                    <th>菜单名字</th>
+					<th style="width:100px;">所属栏目</th>
+					<th style="width:100px;">所属年份</th>
+					<th style="width:100px;">顺序</th>
                     <th style="width:100px;">操作</th>
                 </tr>
             </thead>
@@ -29,9 +30,10 @@
                     <tr>
                         <td><input class="ids row-selected" type="checkbox" name="id[]" value="{$info.id}"></td>
                         <td>{$info.id}</td>
-                        <td><a href="{:U('edit?id='.$info['id'])}">{$info.title}</a></td>
-                        <td>{$info.type_name}</td>
-                        <td>{$info.publishtime}</td>
+						<td><a href="{:U('edit?id='.$info['id'])}">{$info.name}</a></td>
+						<td><a href="{:U('index?item_id='.$info['item']['id'].'&year='.$year)}">{$info.item.name}</a></td>
+						<td><a href="{:U('index?item_id='.$item_id.'&year='.$info['year'])}">{$info.year}</a></td>
+						<td>{$info.ord}</td>
                         <td>
                             <a title="编辑" href="{:U('edit?id='.$info['id'])}">编辑</a>
                             <a class="confirm ajax-get" title="删除" href="{:U('del?id='.$info['id'])}">删除</a>
@@ -53,43 +55,6 @@
 <block name="script">
 <script type="text/javascript">
 $(function(){
-    //搜索功能
-    $("#search").click(function(){
-        var url = $(this).attr('url');
-        var query  = $('.search-form').find('input').serialize();
-        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
-        query = query.replace(/^&/g,'');
-        if( url.indexOf('?')>0 ){
-            url += '&' + query;
-        }else{
-            url += '?' + query;
-        }
-        window.location.href = url;
-    });
-    //回车搜索
-    $(".search-input").keyup(function(e){
-        if(e.keyCode === 13){
-            $("#search").click();
-            return false;
-        }
-    });
-    //点击排序
-    $('.list_sort').click(function(){
-        var url = $(this).attr('url');
-        var ids = $('.ids:checked');
-        var param = '';
-        if(ids.length > 0){
-            var str = new Array();
-            ids.each(function(){
-                str.push($(this).val());
-            });
-            param = str.join(',');
-        }
-
-        if(url != undefined && url != ''){
-            window.location.href = url + '/ids/' + param;
-        }
-    });
 });
 </script>
 </block>
