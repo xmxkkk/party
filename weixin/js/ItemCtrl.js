@@ -1,5 +1,6 @@
-module.controller('ItemCtrl', function($scope,$rootScope,$http,$stateParams) {
+module.controller('ItemCtrl', function($scope,$rootScope,$http,$stateParams,$ionicNavBarDelegate) {
     console.log($stateParams);
+	var viewTitle="";
 
     $rootScope.data={
         text:""
@@ -72,7 +73,7 @@ module.controller('ItemCtrl', function($scope,$rootScope,$http,$stateParams) {
     var requestData=function(){
         $http.get($scope.baseUrl+'/Home/home/item/item_id/'+$stateParams.item_id+".html",{}).success(function(data){
             $scope.item=data;
-            console.log($scope.item);
+			$ionicNavBarDelegate.title(data.item.name);
         });
     }
 
@@ -88,6 +89,8 @@ module.controller('ItemCtrl', function($scope,$rootScope,$http,$stateParams) {
             }
         });
     }
-    requestData();
+	$scope.init=function(){
+    	requestData();
+	}
 
 })

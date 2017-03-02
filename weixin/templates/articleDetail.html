@@ -2,14 +2,13 @@
 
 </style>
 <ion-view view-title="新闻" ng-init="init()">
-
-	<div class="bar bar-header common-title-bg gray1">
-		<div class="h1 title"><b>{{item.name}}</b></div>
-    </div>
+	<ion-nav-title>
+      {{item.name}}
+    </ion-nav-title>
   <ion-content class="padding has-header">
 	  <div class="list-group-item-heading" style="font-family:'微软雅黑';font-size:14px;color:#333;"><b>{{news.title}}</b></div>
 	  <p ng-if="news.cover_path" class="list-group-item-text" style="padding-bottom:5px;width:100%;display:block;vertical-align: top;">
-		  <img style="width:100%;" src="{{news.cover_path}}">
+		  <img style="width:100%;" ng-src="{{news.cover_path}}">
 	  </p>
 	  <p class="list-group-item-text" style="font-family:'微软雅黑';font-size:12px;padding-bottom:5px;" ng-bind-html="news.content"></p>
 	  <div class="text-right" style="font-size:12px;color:#666;">{{news.publishtime}}</div>

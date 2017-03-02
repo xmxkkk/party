@@ -1,6 +1,6 @@
-module.controller('ScoreCtrl', function($scope,$rootScope,$http,$stateParams,ObjectFactory) {
+module.controller('ScoreCtrl', function($scope,$rootScope,$http,$stateParams,ObjectFactory,$ionicNavBarDelegate) {
    $scope.tabIdx=0;
-   var year=$stateParams.year;
+   var year=$scope.year=$stateParams.year;
 
 	var tabIdx=ObjectFactory.get('tabIdx');
 	if(!tabIdx){
@@ -21,7 +21,9 @@ module.controller('ScoreCtrl', function($scope,$rootScope,$http,$stateParams,Obj
    			}else if($scope.tabIdx==2){
    				$scope.scores=data;
    			}
+			$ionicNavBarDelegate.title(year+"年积分事件");
 	    });
    }
    $scope.selectTab(tabIdx);
+   $ionicNavBarDelegate.showBackButton(true);
 });

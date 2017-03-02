@@ -1,4 +1,4 @@
-module.controller('MenuCtrl', function($scope,$rootScope,$http,$stateParams,ObjectFactory) {
+module.controller('MenuCtrl', function($scope,$rootScope,$http,$stateParams,ObjectFactory,$ionicNavBarDelegate) {
     console.log($stateParams);
 
 	$scope.year=$stateParams.year;
@@ -26,6 +26,7 @@ module.controller('MenuCtrl', function($scope,$rootScope,$http,$stateParams,Obje
 	    $http.post($scope.baseUrl+'/Home/home/menu.html',{item_id:$stateParams.item_id,year:$stateParams.year}).success(function(data){
 	        $scope.item=data;
 	        console.log($scope.item);
+			$ionicNavBarDelegate.title($scope.year+"年"+data.item.name);
 	    });
     }
     requestData();

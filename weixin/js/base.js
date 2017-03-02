@@ -12,8 +12,8 @@ module.factory('ObjectFactory',[function(){
     }
 }])
 
-module.run(['$rootScope','$state','$stateParams','$ionicPopup'
-  ,function($rootScope,$state,$stateParams,$ionicPopup){
+module.run(['$rootScope','$state','$stateParams','$ionicPopup','$ionicHistory'
+  ,function($rootScope,$state,$stateParams,$ionicPopup,$ionicHistory){
     $rootScope.$state = $state;
     $rootScope.$stateParams = $stateParams;
 	$rootScope.previousState_name=[];
@@ -26,14 +26,22 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
 			$rootScope.previousState_name.push(fromState.name);
 			$rootScope.previousState_params.push(fromParams);
 		}
-		console.log($rootScope.previousState_name);
-		console.log($rootScope.previousState_params);
     });
     //back button function called from back button's ng-click="back()"
     $rootScope.back = function() {//实现返回的函数
 		// console.log($rootScope.previousState_name);
 		// console.log($rootScope.previousState_params);
+		$ionicHistory.goBack(-1);
+		var view=$ionicHistory.currentView();
+		if(view){
+			console.log(view);
+			var stateName=view.stateName;
+			if(stateName=='upload'||stateName=='addService'){
+				$ionicHistory.goBack(-1);
+			}
+		}
 
+		/*
 		var stateName=$rootScope.previousState_name.pop();
 		var params=$rootScope.previousState_params.pop();
 
@@ -45,7 +53,7 @@ module.run(['$rootScope','$state','$stateParams','$ionicPopup'
 			}
 		}else{
 			$state.go('index',{});
-		}
+		}*/
     };
 
     $rootScope.go=function(page,params){

@@ -123,7 +123,7 @@ angular.module('starter', ['ionic', 'starter.controllers','starter.base', 'start
     cache:'false'
   })
   .state('article', {
-    url: '/article/:article_id',
+    url: '/article/:item_id',
     abstract: false,
     templateUrl: 'templates/article.html',
     controller: 'ArticleCtrl',

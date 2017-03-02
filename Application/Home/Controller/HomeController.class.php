@@ -74,6 +74,9 @@ class HomeController extends Controller {
 		session('uid',$member['id']);
 		// session('isleader',1);
 		session('isadmin',$member['is_admin']);
+		// $uid=empty(session('uid'))?0:session('uid');
+		// $isleader=empty(session('isleader'))?0:session('isleader');
+		// $isadmin=empty(session('isadmin'))?0:session('isadmin');
 
 		$this->ajaxReturn(['status'=>1,'message'=>'登录成功']);
 	}
@@ -164,7 +167,7 @@ class HomeController extends Controller {
 			$this->ajaxReturn($tasks);
 		}else if($type==2){
 			//服务分
-			$services=D('service')->where(array('year'=>$year))->select();
+			$services=D('service')->where(array('year'=>$year,'uid'=>$uid))->select();
 			for($i=0;$i<count($services);$i++){
 				$type_id=$services[$i]['id'];
 				$services[$i]['userScore']=D('userScore')->where(array('uid'=>$uid,'type'=>$type,'type_id'=>$type_id))->find();
@@ -406,8 +409,10 @@ class HomeController extends Controller {
 
 		$this->ajaxReturn($result);
 	}
-	function picture($menu_id=0,$title_id=0){
-		$pictures=M('ItemPicture')->where(array('menu_id'=>$menu_id,'title_id'=>$title_id))->order('ord asc,addtime asc')->select();
+	function picture($menu_id=0){
+		$itemMenu=M('itemMenu')->where(array('id'=>$menu_id))->find();
+
+		$pictures=M('ItemPicture')->where(array('menu_id'=>$menu_id))->order('ord asc,addtime asc')->select();
 
 		for($i=0;$i<count($pictures);$i++){
 			$pic=M('picture')->where(array('id'=>$pictures[$i]['picture_id']))->find();
@@ -418,6 +423,7 @@ class HomeController extends Controller {
 
 		$result=$this->user();
 		$result['pictures']=$pictures;
+		$result['itemMenu']=$itemMenu;
 
 		$this->ajaxReturn($result);
 	}
@@ -426,7 +432,7 @@ class HomeController extends Controller {
 		$info=json_decode($info);
 
 		if($info->type=='menu'){
-			$this->islogin('LEADER');
+			$this->islogin('ADMIN');
 		}else if($info->type=='task' || $info->type=='service'){
 			$this->islogin('USER');
 		}else{
@@ -591,10 +597,9 @@ class HomeController extends Controller {
 		$this->ajaxReturn($result);
 	}
 	function imageOp(){
-		$this->islogin('LEADER');
+		$this->islogin('ADMIN');
 
 		$data=I('post.data');
-		$title_id=intval(I('post.title_id'));
 		$menu_id=intval(I('post.menu_id'));
 
 		$data=json_decode($data);
@@ -605,7 +610,7 @@ class HomeController extends Controller {
 		}
 		$str=join(',',$arr);
 
-		M('ItemPicture')->where(array('title_id'=>$title_id,'menu_id'=>$menu_id,'id'=>array('not in',$str)))->delete();
+		M('ItemPicture')->where(array('menu_id'=>$menu_id,'id'=>array('not in',$str)))->delete();
 
 		for($i=0;$i<count($data);$i++){
 			M('ItemPicture')->where(array('id'=>$data[$i]->id))->save(array('ord'=>$data[$i]->ord));

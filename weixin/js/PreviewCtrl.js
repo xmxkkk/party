@@ -1,4 +1,4 @@
-module.controller('PreviewCtrl', function($scope,$http,$stateParams) {
+module.controller('PreviewCtrl', function($scope,$http,$stateParams,$ionicNavBarDelegate) {
     console.log($stateParams);
     var sortItem=function(){
         var temp=new Array();
@@ -57,13 +57,13 @@ module.controller('PreviewCtrl', function($scope,$http,$stateParams) {
     $http.get($scope.baseUrl+"/Home/home/picture/menu_id/"+$stateParams.menu_id+".html",{}).success(function(data){
         $scope.item=data;
         console.log($scope.item);
-
+		$ionicNavBarDelegate.title($scope.item.itemMenu.name);
         var html="";
 
         if($scope.item.pictures){
 
         }else{
-            
+
         }
 
     });

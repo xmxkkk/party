@@ -1,7 +1,7 @@
 <ion-view view-title="" ng-init="init()">
-	<div class="bar bar-header common-title-bg gray1">
-		<div class="h1 title"><b>{{item.name}}</b></div>
-    </div>
+	<ion-nav-title>
+      {{item.name}}
+    </ion-nav-title>
 	<ion-content class="common-bg has-header ">
 		<ion-list ng-show="page.items.length>0">
 	        <div class="list-group" style="padding-top:4px;">
@@ -9,7 +9,7 @@
 	            <div class="list-group-item-heading" style="font-family:'微软雅黑';font-size:14px;color:#333"><b>{{item.title}}</b></div>
 
 	            <p ng-if="item.is_cover==1" class="list-group-item-text" style="padding-bottom:5px;overflow:hidden;width:100%;max-height:200px;display:block;vertical-align: top;">
-	                <img style="width:100%;" src="{{item.cover_path}}">
+	                <img style="width:100%;" ng-src="{{item.cover_path}}">
 	            </p>
 	            <p ng-if="item.is_cover==0" class="list-group-item-text" style="font-family:'微软雅黑';font-size:12px;padding-bottom:5px;">{{item.summary}}</p>
 	            <div class="text-right" style="font-size:12px;color:#666;">{{item.publishtime}}</div>

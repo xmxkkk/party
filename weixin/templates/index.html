@@ -1,11 +1,11 @@
-<ion-view view-title="">
-	<div class="bar bar-header common-title-bg gray1">
-		<div class="h1 title"><b>首页</b></div>
-    </div>
+<ion-view>
+	<ion-nav-title>
+      首页
+    </ion-nav-title>
 	<ion-content class="common-bg has-header">
 		<div class="padding">
 			<div ng-repeat="item in items">
-				<button class="button button-block button-light" ng-click="go('item',{item_id:item.id})">
+				<button class="button button-block button-light" ng-click="go(item.type,{item_id:item.id})">
 				 	{{item.name}}
 				</button>
 			</div>

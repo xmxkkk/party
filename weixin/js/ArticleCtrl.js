@@ -1,5 +1,5 @@
 module.controller('ArticleCtrl', function($scope,$rootScope,$http,$stateParams,ObjectFactory) {
-	var article_id=$stateParams.article_id;
+	var article_id=$stateParams.item_id;
 
 	$scope.init=function(){
 		$scope.page={

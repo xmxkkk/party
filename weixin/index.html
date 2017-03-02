@@ -130,9 +130,41 @@ li {list-style-type:none;}
 .title_task{line-height:25pt;font-weight: bold;color: #444;}
 .content_task{line-height:20pt;color:#999}
 
+.xtabs{
+	width:100%;
+	height:32pt;
+	line-height: 32pt;
+	clear:both;
+	background: #f8f8f8;
+}
+.xtab{
+	width:33.33333333%;
+	text-align: center;
+	float: left;
+	border-bottom: 1px solid #f8f8f8;
+}
+.xtab-active{
+	border-bottom: 1px solid #cc2311;
+	color:#cc2311;
+}
+.xitem{
+	margin:-1px;border:1px solid #c8c7cc;line-height: 30pt;overflow: hidden;height:40pt;padding-left:15px;padding-right: 15px;padding-top: 5px;padding-bottom: 5px;
+}
+.xcircle{
+	height:30pt;float:left;border-radius:15pt;width:30pt;text-align: center;color:#fff
+}
+.fs1{
+	background: #ef4e3a;line-height:12pt;padding-top: 3pt;
+}
 </style>
   </head>
   <body ng-app="starter">
+	<ion-nav-bar class="bar-positive">
+      <ion-nav-back-button class="button-clear">
+		  <i class="ion-chevron-left"></i> 返回
+      </ion-nav-back-button>
+    </ion-nav-bar>
+
     <ion-nav-view></ion-nav-view>
   </body>
 </html>
